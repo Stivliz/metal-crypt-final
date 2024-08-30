@@ -48,7 +48,7 @@ const Login = () => {
     }
   
     return (
-      <div className="flex flex-col justify-center max-w-md mx-auto p-6  rounded-lg shadow-md h-[100vh]">
+      <div className="flex flex-col justify-center max-w-md mx-auto p-6 bg-b rounded-lg shadow-md h-[100vh]">
         <h1 className="text-2xl font-bold mb-6 text-center">Inicio de Sesión</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">

@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const NavRoot = () => {
     return(
-        <nav className='flex flex-col items-center bg-black pb-5'>
+        <nav className='flex flex-col items-center bg-black pb-5 '>
 
 
             <section className='w-[40%] mt-[70px]'>

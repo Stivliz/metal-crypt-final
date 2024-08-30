@@ -137,7 +137,7 @@ const Register = () => {
               <button
                 disabled={true}
                 type="submit"
-                className="bg-blue-200 border-gray-700 text-white-400 font-bold py-2 px-4 rounded"
+                className="bg-blue-700 border-gray-700 text-white-400 font-bold py-2 px-4 rounded"
               >
                 Registrarse
           </button>
