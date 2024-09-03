@@ -1,6 +1,5 @@
 import axios from "axios";
 
-console.log(process.env.API_MC_URL)
 
 interface singin {
     bandname: string;
@@ -29,7 +28,7 @@ export default class Authservice {
 
     async singin({bandname, password}:singin) {
         try {
-            const {data} = await axios.post(`http://localhost:3002/api/v1/login/login`, {
+            const {data} = await axios.post(`${process.env.NEXT_PUBLIC_ULR_PRODUCTION}/login/login`, {
                 bandname,
                 password
             })
@@ -44,7 +43,7 @@ export default class Authservice {
 
     async signup(formData: FormData) {
       try {
-        const { data } = await axios.post(`http://localhost:3002/api/v1/login/register`, formData, {
+        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_ULR_PRODUCTION}/login/register`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

@@ -11,7 +11,7 @@ export default class BandsService {
 
     async getBands() {
         try {
-            const {data} = await axios.get('http://localhost:3002/api/v1/bands')
+            const {data} = await axios.get(`${process.env.NEXT_PUBLIC_ULR_PRODUCTION}/bands`)
             return {status:true, data}
         }catch(error:any) {
             return { status: false, data: error }
@@ -20,7 +20,7 @@ export default class BandsService {
 
     async getBandById(_id:string) {
         try {
-            const {data} = await axios.get(`http://localhost:3002/api/v1/bands/band/${_id}`)
+            const {data} = await axios.get(`${process.env.NEXT_PUBLIC_ULR_PRODUCTION}/bands/band/${_id}`)
             
             return {status:true, data}
         } catch (error) {
