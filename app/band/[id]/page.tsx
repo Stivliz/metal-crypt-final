@@ -42,22 +42,35 @@ export async function generateMetadata({ params }: { params: ParamsBand }): Prom
     const $Band = new BandsService();
     const band: BandResponse = await $Band.getBandById(params.id);
 
+    if (!band.status || !band.data || !band.data.data) {
+        return {
+            title: 'Band Not Found',
+            description: 'Details about the band are not available',
+        };
+    }
+
     return {
-        title: band.data.bandname,
-        description: `Details about ${band.data.bandname}`,
+        title: band.data.data.bandname,
+        description: `Details about ${band.data.data.bandname}`,
     };
 }
 
 const BandPage = async ({ params }: { params: ParamsBand }) => {
     const $Band = new BandsService();
+    console.log($Band);
+    
     const band: BandResponse = await $Band.getBandById(params.id);
 
-    if (!band.status) {
-        return <div>Error loading band details</div>;
-    }
+    console.log(band.data);
+    
 
-    const data = band.data;
+    // if (!band.status || !band.data || !band.data.data) {
+    //     return <div>Error loading band details</div>;
+    // }
 
+    const data:any = band.data;
+    console.log(data);
+    
     return (
         <div>
             <NavBar />
