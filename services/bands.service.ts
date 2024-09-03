@@ -5,13 +5,13 @@ export default class BandsService {
     token: string | null;
 
     constructor(token = null) {
-        this.API_URL = process.env.API_MC_URL;
+        this.API_URL = process.env.NEXT_PUBLIC_ULR_PRODUCTION;
         this.token = token;
     }
 
     async getBands() {
         try {
-            const {data} = await axios.get(`${process.env.NEXT_PUBLIC_ULR_PRODUCTION}/bands`)
+            const {data} = await axios.get(`${this.API_URL}/bands`)
             return {status:true, data}
         }catch(error:any) {
             return { status: false, data: error }
@@ -20,7 +20,7 @@ export default class BandsService {
 
     async getBandById(_id:string) {
         try {
-            const {data} = await axios.get(`${process.env.NEXT_PUBLIC_ULR_PRODUCTION}/bands/band/${_id}`)
+            const {data} = await axios.get(`${this.API_URL}/bands/band/${_id}`)
             
             return {status:true, data}
         } catch (error) {

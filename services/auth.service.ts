@@ -20,7 +20,7 @@ export default class Authservice {
     token: string | null;
 
     constructor(token = null) {
-        this.API_URL = process.env.API_MC_URL;
+        this.API_URL = process.env.NEXT_PUBLIC_ULR_PRODUCTION;
         this.token = token;
     }
 
@@ -28,7 +28,7 @@ export default class Authservice {
 
     async singin({bandname, password}:singin) {
         try {
-            const {data} = await axios.post(`${process.env.NEXT_PUBLIC_ULR_PRODUCTION}/login/login`, {
+            const {data} = await axios.post(`${this.API_URL}/login/login`, {
                 bandname,
                 password
             })
@@ -43,7 +43,7 @@ export default class Authservice {
 
     async signup(formData: FormData) {
       try {
-        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_ULR_PRODUCTION}/login/register`, formData, {
+        const { data } = await axios.post(`${this.API_URL}/login/register`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
