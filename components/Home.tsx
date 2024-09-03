@@ -33,7 +33,7 @@ const BandsHome = () => {
         <div className="bg-black h-[100%]">
             <div className="flex items-center justify-center mt-16">
                 <div className="grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-[60%]">
-                    {bands.map((e) => (
+                    {bands?.map((e) => (
                         <div key={e._id} className="flex flex-col items-center border border-white w-max mx-16">
                             <Image width={200} height={200} src={e.logoBand} alt="photo" />
                             <h2 className="text-center">{e.bandname}</h2>
