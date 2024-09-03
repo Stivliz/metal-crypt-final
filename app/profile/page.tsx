@@ -6,7 +6,7 @@ import Image from "next/image"
 import NavRoot from "@/components/NavRoot"
 import NavBar from "@/components/NavBar"
 
-const profile = () => {
+const Profile = () => {
 
     const [cookie, setCookie] = useState({
         band_id: null,
@@ -48,4 +48,4 @@ const profile = () => {
     )
 }
 
-export default profile
+export default Profile

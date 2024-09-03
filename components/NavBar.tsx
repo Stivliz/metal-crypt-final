@@ -15,7 +15,7 @@ const NavBar = () => {
         if (token) {
             setIsLoggedIn(true);
         }
-    }, []);
+    }, [cookies]);
 
     const handleLogout = () => {
         cookies.remove('band_id');
