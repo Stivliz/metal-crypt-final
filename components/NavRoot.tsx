@@ -18,7 +18,7 @@ const NavRoot = () => {
                         </Link>
                     </li> */}
                     <li>
-                        <Link href="/aboutus">
+                        <Link href="/about">
                             <p className='font-thin border-b-2 border-white'>About</p>
                         </Link>
                     </li>
