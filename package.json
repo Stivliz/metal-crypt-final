@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@algolia/autocomplete-core": "^1.17.4",
     "@next/font": "^14.2.7",
     "@nextui-org/react": "^2.4.6",
     "axios": "^1.7.5",

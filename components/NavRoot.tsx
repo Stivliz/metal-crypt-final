@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Search from './Search'
 
 const NavRoot = () => {
     return(
@@ -25,6 +26,7 @@ const NavRoot = () => {
                 </ul>
             </section>
             <div className="w-3/5 h-px bg-white my-4 mx-auto"></div>
+            <Search />
         </nav>
 
     )

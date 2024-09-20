@@ -27,4 +27,15 @@ export default class BandsService {
             return { status: false, data: error }
         }
     }
+
+
+    async searchBandName(bandname:string) {
+        try {
+            const {data} = await axios.get(`${this.API_URL}/bands/band/search?bandname=${bandname}`)
+            
+            return {status:true, data}
+        } catch (error) {
+            return { status: false, data: error }
+        }
+    }
 }

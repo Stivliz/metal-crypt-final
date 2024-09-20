@@ -74,7 +74,7 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
             <div className="flex flex-col items-center h-[100vh] bg-black">
                 <div className="w-[60%]">
                     <h1>{data.bandname}</h1>
-                    <p>{data.genre.join(', ')}</p>
+                    <p>{data.genre?.join(', ')}</p>
                     <Image width={200} height={200} src={data.logoBand} alt="photo" />
                     <p>{new Date(data.formedDate).toISOString().split('T')[0]}</p>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
