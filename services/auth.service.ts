@@ -16,11 +16,11 @@ interface singUp {
 
 export default class Authservice {
 
-    API_URL: string | undefined;    
+    API_URL: string | undefined;
     token: string | null;
 
     constructor(token = null) {
-        this.API_URL = process.env.NEXT_PUBLIC_ULR_PRODUCTION;
+        this.API_URL = process.env.NEXT_PUBLIC_API_MC_URL;
         this.token = token;
     }
 
@@ -32,9 +32,9 @@ export default class Authservice {
                 bandname,
                 password
             })
-            console.log(this.API_URL);          
+            console.log(this.API_URL);
             console.log(data);
-            
+
             return {status: true, data}
         } catch(error:any) {
             return { status: false, data: error }
