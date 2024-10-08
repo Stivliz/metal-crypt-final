@@ -47,7 +47,7 @@ export function AlbumList() {
   }
 
   return (
-    <div>
+    <div className="grid grid-cols-2 gap-4">
       {albums.length > 0 ? (
         albums.map((album: Album) => (
           <div key={album._id} className="mb-4 p-4 border rounded">
