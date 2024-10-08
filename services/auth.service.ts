@@ -24,8 +24,6 @@ export default class Authservice {
         this.token = token;
     }
 
-
-
     async singin({bandname, password}:singin) {
         try {
             const {data} = await axios.post(`${this.API_URL}/login/login`, {
