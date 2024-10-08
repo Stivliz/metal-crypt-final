@@ -65,9 +65,8 @@ export default function Search(props: any) {
   const formProps = autocomplete.getFormProps({
     inputElement: inputRef.current
   })
-  const inputProps = autocomplete.getInputProps({
+  const inputProps:any= autocomplete.getInputProps({
     inputElement: inputRef.current,
-    
   })
 
   return (
@@ -76,23 +75,28 @@ export default function Search(props: any) {
       className="flex justify-end w-[60%]"
       {...formProps}
       onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        // event.preventDefault()
       }}
       onReset={(event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+        // event.preventDefault()
       }}
-    >
+      >
       <div className="flex relative p-1 bg-black w-2/6">
-        <input
-          ref={inputRef}
+
+      <input 
+          ref={inputRef} 
           className="flex-1 p-2 pl-4 rounded-md w-full text-black"
-          {...inputProps}
+          {...inputProps }
         />
         {autocompleteState.isOpen && (
           <div
             className="absolute mt-16 top-0 left-0 border border-gray-100 bg-white overflow-hidden rounded-lg shadow-lg z-10 w-[100%]"
             ref={panelRef}
+
             {...autocomplete.getPanelProps()}
+            onMouseDown={(event: React.MouseEvent<HTMLDivElement>) => {
+
+          }}
           >
             {autocompleteState.collections.map((collection, index) => {
               const { items } = collection
