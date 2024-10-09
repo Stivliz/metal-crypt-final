@@ -25,15 +25,20 @@ export default class AlbumService {
 
   async PostAlbum(album: FormAlbum) {
     try {
+      //backend-mc-2ul5.onrender.com/
       const cookies = new Cookies();
       const tokenCookies = cookies.get("token") || "";
       console.log("* PostAlbum - token ---> ", tokenCookies);
-      const { data } = await axios.post(`http://localhost:3002/album`, album, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenCookies.toString()}`,
+      const { data } = await axios.post(
+        `https://backend-mc-2ul5.onrender.com/album`,
+        album,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenCookies.toString()}`,
+          },
         },
-      });
+      );
 
       if (data) {
         return { status: true, data };
@@ -51,7 +56,7 @@ export default class AlbumService {
       const cookies = new Cookies();
       const tokenCookies = cookies.get("token") || "";
 
-      let url = `http://localhost:3002/albums`;
+      let url = `https://backend-mc-2ul5.onrender.com/albums`;
       // Agregar albumName a la URL si se proporciona
       if (albumName) {
         url += `?albumName=${encodeURIComponent(albumName)}`;
