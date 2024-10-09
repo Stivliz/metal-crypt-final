@@ -46,6 +46,8 @@ export function AlbumList() {
     return <p>{error}</p>;
   }
 
+  console.log("albumssss --->", albums);
+
   return (
     <div className="grid grid-cols-2 gap-4">
       {albums.length > 0 ? (
@@ -68,7 +70,12 @@ export function AlbumList() {
                 ? album.songs.join(", ")
                 : "No songs listed"}
             </p>
-            <p>Genre: {album.genre?.join(", ") || "No genre listed"}</p>
+            <p>
+              Genre:{" "}
+              {Array.isArray(album.genre)
+                ? album.genre.join(", ")
+                : "No genre listed"}
+            </p>
             <p>Year: {album.year || "Year not specified"}</p>
           </div>
         ))
