@@ -29,7 +29,7 @@ export default class AlbumService {
       const cookies = new Cookies();
       const tokenCookies = cookies.get("token") || "";
       console.log("* PostAlbum - token ---> ", tokenCookies);
-      const { data } = await axios.post(`http://localhost:3002/album`, album, {
+      const { data } = await axios.post(`${this.API_URL}/album`, album, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${tokenCookies.toString()}`,
@@ -52,7 +52,7 @@ export default class AlbumService {
       const cookies = new Cookies();
       const tokenCookies = cookies.get("token") || "";
 
-      let url = `https://backend-mc-2ul5.onrender.com/albums`;
+      let url = `${this.API_URL}/albums`;
       // Agregar albumName a la URL si se proporciona
       if (albumName) {
         url += `?albumName=${encodeURIComponent(albumName)}`;
