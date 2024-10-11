@@ -43,6 +43,7 @@ const Profile = () => {
       <p>bandname: {cookie.bandname}</p>
       <p>genre: {cookie.genre}</p>
       <p>formedDate: {cookie.formedDate}</p>
+      <div>Discography</div>
       <div>
         <CreateAlbum />
       </div>

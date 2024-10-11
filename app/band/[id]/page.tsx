@@ -3,6 +3,7 @@ import BandsService from "@/services/bands.service";
 import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import NavRoot from "@/components/NavRoot";
+import AlbumDataBand from "./bandAlbum";
 
 interface BandParams {
   _id: string;
@@ -104,41 +105,10 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
           </p>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
 
+          <div>Discography</div>
+
           {/* Renderizando los álbumes de la banda */}
-          <div className="mt-6">
-            <h2 className="text-xl text-white mb-4">Albums</h2>
-            <div className="grid grid-cols-2 gap-4">
-              {/* Verificación de que existan álbumes */}
-              {data?.albums && data.albums.length > 0 ? (
-                data.albums.map((album: AlbumParams) => (
-                  <div
-                    key={album._id}
-                    className="p-4 bg-gray-800 rounded-lg shadow-md"
-                  >
-                    <Image
-                      src={album.image}
-                      alt={`${album.name} album cover`}
-                      width={150}
-                      height={150}
-                      className="rounded-lg"
-                    />
-                    <h3 className="text-lg font-bold mt-2 text-white">
-                      {album.name}
-                    </h3>
-                    <p className="text-sm text-gray-300">
-                      Artist: {album.artist}
-                    </p>
-                    <p className="text-sm text-gray-300">Year: {album.year}</p>
-                    <p className="text-sm text-gray-300">
-                      Genre: {album.genre?.join(", ") || "Genre not available"}
-                    </p>
-                  </div>
-                ))
-              ) : (
-                <p className="text-gray-500">No albums found for this band.</p>
-              )}
-            </div>
-          </div>
+          <AlbumDataBand data={data} />
         </div>
       </div>
     </div>
