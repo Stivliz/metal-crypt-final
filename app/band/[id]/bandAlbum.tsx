@@ -17,15 +17,14 @@ interface BandParams {
   albums: AlbumParams[];
 }
 
-const AlbumDataBand = ({ data }: { data: BandParams }) => {
-  const dataone = data;
+const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
   return (
     <div className="mt-8s">
-      <h2 className="text-xl text-white mb-4">Albums</h2>
+      <h2 className="text-xl text-white mb-4"></h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-4">
         {/* Verificación de que existan álbumes */}
-        {dataone?.albums && dataone.albums.length > 0 ? (
-          dataone.albums.map((album: AlbumParams) => (
+        {albums && albums.length > 0 ? (
+          albums.map((album: AlbumParams) => (
             <div
               key={album._id}
               className="p-4 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"

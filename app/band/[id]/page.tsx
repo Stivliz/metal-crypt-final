@@ -4,6 +4,7 @@ import Image from "next/image";
 import NavBar from "@/components/NavBar";
 import NavRoot from "@/components/NavRoot";
 import AlbumDataBand from "./bandAlbum";
+import TabsBand from "./tabs";
 
 interface BandParams {
   _id: string;
@@ -108,7 +109,9 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
           <div>Discography</div>
 
           {/* Renderizando los álbumes de la banda */}
-          <AlbumDataBand data={data} />
+          <div>
+            <TabsBand albums={data.albums} />
+          </div>
         </div>
       </div>
     </div>
