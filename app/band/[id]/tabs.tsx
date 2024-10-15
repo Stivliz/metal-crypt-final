@@ -4,7 +4,7 @@ import AlbumDataBand from "./bandAlbum";
 
 const TabsBand = ({ albums }: any) => {
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col ">
       <Tabs aria-label="Options">
         <Tab key="description" title="Description">
           <Card>
