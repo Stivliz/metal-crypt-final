@@ -1,4 +1,5 @@
-import Image from "next/image";
+//import Image from "next/image";
+import { Image } from "@nextui-org/react";
 
 interface AlbumParams {
   _id: string;
@@ -30,11 +31,12 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
               className="p-4 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
             >
               <Image
+                isZoomed
                 src={album.image}
                 alt={`${album.name} album cover`}
                 width={150}
                 height={150}
-                className="rounded-lg w-full h-auto object-cover"
+                className="rounded-lg w-full h-auto object-cover transition-transform duration-300 ease-in-out hover:scale-110"
               />
               <h3 className="text-lg font-bold mt-2 text-white">
                 {album.name}
