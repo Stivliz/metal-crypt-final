@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import { Input } from "@nextui-org/input";
+import { Input } from "@nextui-org/react";
 import Swal from "sweetalert2";
 import { Button } from "@nextui-org/react";
 import Cookies from "universal-cookie";
@@ -103,27 +103,29 @@ export const CreateAlbum = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="bg-gray-800 p-9 rounded-xl">
-        <label htmlFor="name">Album Name</label>
-        <Input
-          type="text"
-          name="name"
-          placeholder="Título del álbum"
-          onChange={handleInputChange}
-          className="max-w-xs"
-          required
-        />
-
-        <label htmlFor="artist">Artist</label>
-        <Input
-          type="text"
-          id="artist"
-          name="artist"
-          placeholder="Artista"
-          className=""
-          onChange={handleInputChange}
-        />
-
+      <div className="bg-gray-800 p-9 rounded-xl ">
+        <div className="flex flex-wrap md:flex-nowrap gap-4">
+          <label htmlFor="name">Album Name</label>
+          <Input
+            type="text"
+            name="name"
+            placeholder="Título del álbum"
+            onChange={handleInputChange}
+            className="max-w-xs"
+            required
+          />
+        </div>
+        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
+          <label htmlFor="artist">Artist</label>
+          <Input
+            type="text"
+            id="artist"
+            name="artist"
+            placeholder="Artista"
+            className=""
+            onChange={handleInputChange}
+          />
+        </div>
         <Button type="button" onClick={() => setIsModalOpen(true)}>
           Create list songs
         </Button>
