@@ -19,7 +19,7 @@ export default class AlbumService {
   token: string | null;
 
   constructor(token = null) {
-    this.API_URL = process.env.NEXT_PUBLIC_ULR_PRODUCTION;
+    this.API_URL = process.env.NEXT_PUBLIC_API_MC_URL;
     this.token = token;
   }
 
@@ -64,6 +64,7 @@ export default class AlbumService {
           Authorization: `Bearer ${tokenCookies.toString()}`,
         },
       });
+      console.log("*** getAlbumDta", response.data)
       return { status: true, data: response.data };
     } catch (error: any) {
       console.error("Error fetching albums:", error);

@@ -8,7 +8,7 @@ interface Album {
   _id: string;
   name: string;
   artist: string;
-  songs: string[];
+  songs: { id: string; name: string }[];
   image: string;
   genre?: string[];
   year?: string;
@@ -67,7 +67,7 @@ export function AlbumList() {
             <p>
               Songs:{" "}
               {album.songs?.length > 0
-                ? album.songs.join(", ")
+                ? album.songs.map((song) => song.name).join(", ")
                 : "No songs listed"}
             </p>
             <p>
