@@ -1,7 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
-import { Input } from "@nextui-org/react";
 import Swal from "sweetalert2";
-import { Button } from "@nextui-org/react";
 import Cookies from "universal-cookie";
 import CardAlbumSong from "@/components/cardAlbumSong";
 import AlbumService from "@/services/album.service";
@@ -103,69 +101,123 @@ export const CreateAlbum = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="bg-gray-800 p-9 rounded-xl ">
-        <div className="flex flex-wrap md:flex-nowrap gap-4">
-          <label htmlFor="name">Album Name</label>
-          <Input
+      <div className="bg-zinc-800 p-8 rounded-xl max-w-md mx-auto shadow-lg">
+        {/* Album Name */}
+        <div className="mb-4">
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-gray-200 mb-2"
+          >
+            Album name
+          </label>
+          <input
             type="text"
+            id="name"
             name="name"
-            placeholder="Título del álbum"
             onChange={handleInputChange}
-            className="max-w-xs"
+            className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+            placeholder="Enter album name"
             required
           />
         </div>
-        <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-          <label htmlFor="artist">Artist</label>
-          <Input
+
+        {/* Artist */}
+        <div className="mb-4">
+          <label
+            htmlFor="artist"
+            className="block text-sm font-medium text-gray-200 mb-2"
+          >
+            Artist
+          </label>
+          <input
             type="text"
             id="artist"
             name="artist"
-            placeholder="Artista"
-            className=""
             onChange={handleInputChange}
+            className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+            placeholder="Enter artist name"
           />
         </div>
-        <Button type="button" onClick={() => setIsModalOpen(true)}>
-          Create list songs
-        </Button>
 
+        {/* Create Songs Button */}
+        <div className="mb-4">
+          <button
+            type="button"
+            onClick={() => setIsModalOpen(true)}
+            className="w-full px-4 py-2.5 bg-black hover:bg-zinc-900 transition-colors duration-200 text-white font-medium rounded-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800"
+          >
+            Create list songs
+          </button>
+        </div>
+
+        {/* Modal */}
         {isModalOpen && (
           <CardAlbumSong
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            onConfirm={handleSongsConfirm} // Pasamos la función para manejar las canciones
+            onConfirm={handleSongsConfirm}
           />
         )}
 
-        <label htmlFor="imageAlbum" className="block text-white">
-          Imagen
-        </label>
-        <Input
-          type="file"
-          id="imageAlbum"
-          name="image"
-          accept="image/*"
-          onChange={handleInputChange}
-          className=""
-        />
+        {/* Image Upload */}
+        <div className="mb-4">
+          <label
+            htmlFor="picture"
+            className="block text-sm font-medium text-gray-200 mb-2"
+          >
+            Image
+          </label>
+          <div className="relative">
+            <input
+              type="file"
+              id="picture"
+              name="image"
+              accept="image/*"
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-black file:text-white hover:file:bg-zinc-900"
+            />
+          </div>
+        </div>
 
-        <label htmlFor="genre">Genre</label>
-        <Input
-          type="text"
-          id="genre"
-          name="genre"
-          placeholder="Género"
-          className=""
-          onChange={handleInputChange}
-        />
+        {/* Genre */}
+        <div className="mb-4">
+          <label
+            htmlFor="genre"
+            className="block text-sm font-medium text-gray-200 mb-2"
+          >
+            Genre
+          </label>
+          <input
+            type="text"
+            id="genre"
+            name="genre"
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+            placeholder="Enter genre"
+          />
+        </div>
 
-        <label htmlFor="year">Year</label>
-        <Input type="date" id="year" name="year" onChange={handleInputChange} />
+        {/* Year */}
+        <div className="mb-4">
+          <label
+            htmlFor="year"
+            className="block text-sm font-medium text-gray-200 mb-2"
+          >
+            Year
+          </label>
+          <input
+            type="date"
+            id="year"
+            name="year"
+            onChange={handleInputChange}
+            className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+          />
+        </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="w-full px-4 py-2.5 bg-blue-950 hover:bg-blue-900 transition-colors duration-200 text-white font-medium rounded-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800"
         >
           Crear álbum
         </button>
