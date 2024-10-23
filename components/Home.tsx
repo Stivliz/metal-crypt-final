@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import BandsService from "@/services/bands.service";
+import PaginationComponent from "@/components/PaginationComponent";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -16,6 +17,20 @@ const BandsHome = () => {
   const [bands, setBands] = useState<IntBands[]>([]);
   const bandsService = new BandsService();
 
+  const [currentPage, setCurrentPage] = useState(1);
+	const [elementPerPage, setElementPerPage] = useState(9);
+	const indexOfLastCatalogue = currentPage * elementPerPage;
+	const indexOfFirstCatalogue = indexOfLastCatalogue - elementPerPage;
+
+  const currentBands = bands.slice(
+		indexOfFirstCatalogue,
+		indexOfLastCatalogue
+	);
+
+  const pagination = (pageNumber:number) => {
+		setCurrentPage(pageNumber);
+	};
+  
   useEffect(() => {
     const fetchBands = async () => {
       try {
@@ -33,7 +48,7 @@ const BandsHome = () => {
     <div className="bg-black h-[100%]">
       <div className="flex items-center justify-center mt-16">
         <div className="grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-[60%]">
-          {bands
+          {currentBands
             ?.map((e) => (
               <div
                 key={e._id}
@@ -57,6 +72,11 @@ const BandsHome = () => {
             .reverse()}
         </div>
       </div>
+      <PaginationComponent 				
+            elementPerPage={elementPerPage}
+            element={bands.length}
+            pagination={pagination}
+        /> 
     </div>
   );
 };
