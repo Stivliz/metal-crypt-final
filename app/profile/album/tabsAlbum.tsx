@@ -1,10 +1,10 @@
 "use client";
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
-import AlbumDataBand from "./bandAlbum";
+import { AlbumList } from "./albumList";
 
-const TabsBand = ({ albums }: any) => {
+const TabsAlbum = () => {
   return (
-    <div className="flex w-full flex-col ">
+    <div className="flex w-full flex-col  relative">
       <Tabs aria-label="Options">
         <Tab key="description" title="Description">
           <Card>
@@ -19,13 +19,13 @@ const TabsBand = ({ albums }: any) => {
         <Tab key="albums" title="Albums">
           <Card>
             <CardBody>
-              <AlbumDataBand albums={albums} />
+              <AlbumList />
             </CardBody>
           </Card>
         </Tab>
         <Tab key="songs" title="Songs">
           <Card>
-            <CardBody className="text-gray-500">
+            <CardBody className="text-gray-500 py-3">
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
               officia deserunt mollit anim id est laborum.
             </CardBody>
@@ -36,4 +36,4 @@ const TabsBand = ({ albums }: any) => {
   );
 };
 
-export default TabsBand;
+export default TabsAlbum;
