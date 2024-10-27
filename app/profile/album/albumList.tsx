@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Image } from "@nextui-org/react";
 import AlbumService from "@/services/album.service";
 import { CreateAlbum } from "./createAlbum";
+import SongsAlbum from "./songsAlbum";
 
 interface Album {
   _id: string;
@@ -20,7 +21,8 @@ export function AlbumList() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isModalSongOpen, setIsModalSongOpen] = useState(false);
+  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
   const $Album = new AlbumService();
 
   useEffect(() => {
@@ -40,9 +42,17 @@ export function AlbumList() {
     }
     fetchAlbums();
   }, []);
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+
+  const toggleModal = {
+    openModalForm: function () {
+      return setIsModalOpen(!isModalOpen);
+    },
+    openModalSong: function (album: Album) {
+      setSelectedAlbum(album);
+      return setIsModalSongOpen(!isModalSongOpen);
+    },
   };
+
   if (loading) {
     return <p className="text-gray-500">Loading albums...</p>;
   }
@@ -64,22 +74,22 @@ export function AlbumList() {
             >
               {/*  <p className="text-lg">Artist: {album.artist}</p>*/}
               {album.image && (
-                <Image
-                  isZoomed
-                  src={album.image}
-                  alt={album.name}
-                  width={200}
-                  height={200}
-                  className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
-                />
+                <button
+                  className=""
+                  onClick={() => toggleModal.openModalSong(album)}
+                >
+                  <Image
+                    isZoomed
+                    src={album.image}
+                    alt={album.name}
+                    width={200}
+                    height={200}
+                    className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
+                  />
+                </button>
               )}
-              {/*  <p>
-                Songs:{" "}
-                {album.songs?.length > 0
-                  ? album.songs.map((song) => song.name).join(", ")
-                  : "No songs listed"}
-              </p>
-              <p>
+
+              {/* <p>
                 Genre:{" "}
                 {Array.isArray(album.genre)
                   ? album.genre.join(", ")
@@ -96,7 +106,7 @@ export function AlbumList() {
             <p className="text-gray-500">No albums found.</p>
             <button
               className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-400"
-              onClick={toggleModal} // Muestra el formulario al hacer clic
+              onClick={toggleModal.openModalForm} // Muestra el formulario al hacer clic
             >
               Create Album
             </button>
@@ -105,12 +115,18 @@ export function AlbumList() {
         {albums.length > 0 && (
           <div
             className="p-4 bg-gray-900 rounded-lg shadow-md flex justify-center items-center cursor-pointer min-h-[200px]"
-            onClick={toggleModal}
+            onClick={toggleModal.openModalForm}
           >
             <span className="text-5xl text-gray-600">+</span>
           </div>
         )}
-        {isModalOpen && <CreateAlbum closeModal={toggleModal} />}
+        {isModalSongOpen && selectedAlbum && (
+          <SongsAlbum
+            album={selectedAlbum}
+            closeModal={toggleModal.openModalSong}
+          />
+        )}
+        {isModalOpen && <CreateAlbum closeModal={toggleModal.openModalForm} />}
       </div>
     </div>
   );
