@@ -38,7 +38,7 @@ const TabsBand = ({ albums }: any) => {
         </Tab>
         <Tab key="songs" title="Songs">
           <Card>
-            <CardBody>
+            <CardBody className="text-gray-500">
               Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
               officia deserunt mollit anim id est laborum.
             </CardBody>
