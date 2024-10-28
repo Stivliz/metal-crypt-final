@@ -104,7 +104,7 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
               ? new Date(data.formedDate).toISOString().split("T")[0]
               : "Formed date not available"}
           </p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+          {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p> */}
 
           <div>Discography</div>
 

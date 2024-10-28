@@ -27,6 +27,7 @@ const Login = () => {
           cookie.set('genre', data.band.genre, {path: '/'})
           cookie.set('formedDate', data.band.formedDate, {path: '/'})
           cookie.set('token', data.token, {path: '/'})
+          cookie.set('description', data.band.description, {path: '/'})
 
           Swal.fire("Logged!");
           router.push("/profile");

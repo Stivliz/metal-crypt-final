@@ -1,18 +1,31 @@
 "use client";
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import AlbumDataBand from "./bandAlbum";
+import Cookies from "universal-cookie";
+import { useEffect, useState } from "react";
 
 const TabsBand = ({ albums }: any) => {
+
+  const [cookie, setCookie] = useState({
+    description: null
+  });
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const description = cookies.get("description");
+
+    setCookie({
+      description
+    });
+  }, []);
+
   return (
     <div className="flex w-full flex-col ">
       <Tabs aria-label="Options">
         <Tab key="description" title="Description">
           <Card>
             <CardBody>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+              {cookie.description==null ? (<p>No info</p>) : (<p>{cookie.description}</p>)}
             </CardBody>
           </Card>
         </Tab>
