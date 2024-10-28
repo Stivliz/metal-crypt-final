@@ -5,7 +5,7 @@ import Image from "next/image";
 import { CreateAlbum } from "./album/createAlbum";
 import NavRoot from "@/components/NavRoot";
 import NavBar from "@/components/NavBar";
-import TabsAlbum from "./album/tabsAlbum";
+import TabsPage from "./tabsPage";
 
 const Profile = () => {
   const [cookie, setCookie] = useState({
@@ -43,7 +43,7 @@ const Profile = () => {
         <p>genre: {cookie.genre}</p>
         <div>Discography</div>
         <div className="mt-10 mb-16">
-          <TabsAlbum />
+          <TabsPage />
         </div>
       </div>
     </div>
