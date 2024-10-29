@@ -14,6 +14,7 @@ interface FormAlbum {
   artist?: string;
   songs?: Song[]; // Aquí cambiamos para reflejar que `songs` es un array de objetos { name: string }
   image?: string | undefined;
+  releaseType: string;
   genre?: string[];
   year?: string;
 }
@@ -24,6 +25,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
     artist: "",
     songs: [], // Inicializamos como un array vacío de objetos Song
     image: undefined,
+    releaseType: "",
     genre: [],
     year: "",
   });
@@ -43,11 +45,13 @@ export const CreateAlbum = ({ closeModal }: any) => {
     });
   };
 
-  const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
+  const handleInputChange = async (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
 
-    if (name === "image" && files && files[0]) {
-      const base64Image = await convertToBase64(files[0]); // Convertir imagen a base64
+    if (name === "image" && "files" in e.target && e.target.files?.[0]) {
+      const base64Image = await convertToBase64(e.target.files[0]); // Convertir imagen a base64
       setAlbum({
         ...album,
         image: base64Image,
@@ -115,7 +119,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
               {/* O puedes usar "X" */}
             </button>
           </div>
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               htmlFor="name"
               className="block text-sm font-medium text-gray-200 mb-2"
@@ -134,7 +138,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
           </div>
 
           {/* Artist */}
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               htmlFor="artist"
               className="block text-sm font-medium text-gray-200 mb-2"
@@ -152,7 +156,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
           </div>
 
           {/* Create Songs Button */}
-          <div className="mb-4">
+          <div className="mb-3">
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
@@ -172,7 +176,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
           )}
 
           {/* Image Upload */}
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               htmlFor="picture"
               className="block text-sm font-medium text-gray-200 mb-2"
@@ -192,7 +196,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
           </div>
 
           {/* Genre */}
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               htmlFor="genre"
               className="block text-sm font-medium text-gray-200 mb-2"
@@ -209,8 +213,32 @@ export const CreateAlbum = ({ closeModal }: any) => {
             />
           </div>
 
+          {/* Discography */}
+          <div className="mb-3">
+            <label
+              htmlFor="releaseType"
+              className="block text-sm font-medium text-gray-200 mb-2"
+            >
+              Release Type
+            </label>
+            <select
+              id="releaseType"
+              name="releaseType"
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+              required
+            >
+              <option value="" disabled selected>
+                Select release type
+              </option>
+              <option value="album">Album</option>
+              <option value="ep">EP</option>
+              <option value="single">Single</option>
+            </select>
+          </div>
+
           {/* Year */}
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               htmlFor="year"
               className="block text-sm font-medium text-gray-200 mb-2"

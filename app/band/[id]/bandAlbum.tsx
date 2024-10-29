@@ -10,6 +10,7 @@ interface AlbumParams {
   name: string;
   artist: string;
   image: string;
+  releaseType: string;
   year: number;
   genre: string[];
 }
@@ -60,7 +61,9 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
                   {album.name}
                 </h3>
                 {/*<p className="text-sm text-gray-300">Artist: {album.artist}</p>*/}
-                <p className="text-sm text-zinc-400">{album.year} • Album</p>
+                <p className="text-sm text-zinc-400">
+                  {album.year} • {album.releaseType.toUpperCase()}
+                </p>
                 {/* <p className="text-sm text-gray-300">
                 Genre: {album.genre?.join(", ") || "Genre not available"}
                 </p> */}

@@ -12,6 +12,7 @@ interface Album {
   artist: string;
   songs: { id: string; name: string }[];
   image: string;
+  releaseType: string;
   genre?: string[];
   year?: string;
 }
@@ -98,7 +99,9 @@ export function AlbumList() {
               <h3 className="text-lg font-bold mt-2 text-white">
                 {album.name}
               </h3>
-              <p className="text-sm text-zinc-400">{album.year} • Album</p>
+              <p className="text-sm text-zinc-400">
+                {album.year} • {album.releaseType.toUpperCase()}
+              </p>
             </div>
           ))
         ) : (
