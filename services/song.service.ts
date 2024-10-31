@@ -52,7 +52,7 @@ export default class SongService {
           Authorization: `Bearer ${tokenCookies.toString()}`,
         },
       });
-      console.log("*** getAlbumDta", response.data);
+      console.log("*** songData -->", response.data);
       return { status: true, data: response.data };
     } catch (error: any) {
       console.error("Error fetching songs:", error);

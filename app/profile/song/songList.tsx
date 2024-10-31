@@ -9,7 +9,8 @@ interface Song {
   name: string;
   artist: string;
   image: string | undefined;
-  duration: number;
+  //duration: number;
+  releaseType: string;
   genre: string[];
   year: string;
 }
@@ -27,13 +28,14 @@ const SongList = () => {
     async function fetchAlbums() {
       try {
         const result = await $Song.getSong();
+        console.log("result inside songList(profile) -->", result);
         if (result.status) {
           setSongs(result.data.message || []);
         } else {
           setError("Failed to fetch songs");
         }
       } catch (err) {
-        setError("An error occurred while fetching albums");
+        setError("An error occurred while fetching Songs");
       } finally {
         setLoading(false);
       }
@@ -47,24 +49,28 @@ const SongList = () => {
     },
   };
   if (loading) {
-    return <p className="text-gray-500">Loading albums...</p>;
+    return <p className="text-gray-500">Loading list...</p>;
   }
 
   if (error) {
     return <p>{error}</p>;
   }
 
+  console.log("songs desde SONGLIST(profile/song)", songs);
+
   return (
-    <div className="bg-gray-900 text-white p-6 rounded-lg shadow-md">
-      <div className="flex items-center border-b border-gray-700 pb-3 mb-3">
-        <div className="w-8 text-center">#</div>
-        <div className="flex-1 pl-3">Título</div>
-        <div className="w-48">Artista</div>
-        <div className="w-24">Género</div>
-        <div className="w-16 text-right">Duración</div>
-      </div>
+    <div className=" rounded-lg shadow-md">
+      {songs.length > 0 && (
+        <div className="flex items-center border-b border-gray-700 pb-3 mb-3">
+          <div className="w-8 text-center">#</div>
+          <div className="flex-1 pl-3">Título</div>
+          <div className="w-48">Artista</div>
+          <div className="w-36">Género</div>
+          <div className="w-28 ">Discography</div>
+        </div>
+      )}
       <div>
-        {songs.length > 0 ? (
+        {songs.length > 0 &&
           songs.map((song, index) => (
             <div
               key={song._id}
@@ -80,11 +86,13 @@ const SongList = () => {
                 <span className="ml-3">{song.name}</span>
               </div>
               <div className="w-48">{song.artist}</div>
-              <div className="w-24">{song.genre.join(", ")}</div>
-              <div className="w-16 text-right">{song.duration} min</div>
+              <div className="w-36">{song.genre}</div>
+              <div className="flex w-28 items-center">
+                {song.releaseType.toUpperCase()}
+              </div>
             </div>
-          ))
-        ) : (
+          ))}{" "}
+        {/* : (
           <div className="col-span-4 p-4 bg-gray-900 rounded-lg shadow-md min-h-[200px] flex flex-col items-center justify-center">
             <p className="text-gray-500">No songs found.</p>
             <button
@@ -94,8 +102,17 @@ const SongList = () => {
               Create Song
             </button>
           </div>
-        )}
-        {isModalOpen && <CreateSong closeModal={toggleModal.openModalForm} />}
+        )
+        songs.length > 0 && (
+          <div>
+            <button
+              className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-400"
+              onClick={toggleModal.openModalForm} // Muestra el formulario al hacer clic
+            >
+              Create Song
+            </button>
+          </div>
+          )*/}
       </div>
     </div>
   );

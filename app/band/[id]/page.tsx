@@ -13,6 +13,7 @@ interface BandParams {
   logoBand: string;
   formedDate: string;
   albums: AlbumParams[];
+  songs: SongParams[];
 }
 
 interface AlbumParams {
@@ -22,6 +23,17 @@ interface AlbumParams {
   image: string;
   year: number;
   genre: string[];
+}
+
+interface SongParams {
+  _id: string;
+  name: string;
+  artist: string;
+  image: string | undefined;
+  duration: number;
+  releaseType: string;
+  genre: string[];
+  year: string;
 }
 
 interface BandResponse {
@@ -78,7 +90,8 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
   }
 
   const data: BandParams | undefined = band.data;
-
+  console.log("*Band:", band);
+  console.log("*Data:", data);
   return (
     <div>
       <NavBar />
