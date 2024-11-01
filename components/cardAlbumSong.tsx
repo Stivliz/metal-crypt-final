@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 interface AlbumSongsModalProps {
   isOpen: boolean;
@@ -62,7 +63,7 @@ const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
       onConfirm(songs);
       onClose();
     } else {
-      alert(`El número de canciones debe ser entre ${min} y ${max}`);
+      Swal.fire(`El número de canciones debe ser entre ${min} y ${max}`);
     }
   };
 
