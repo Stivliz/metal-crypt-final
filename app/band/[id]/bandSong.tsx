@@ -15,7 +15,7 @@ interface SongParams {
 
 const SongDataBand = ({ songs }: { songs: SongParams[] }) => {
   return (
-    <div className="bg-gray-900 text-white p-6 rounded-lg shadow-md">
+    <div className=" text-white py-5 rounded-lg shadow-md">
       {songs.length > 0 && (
         <div className="flex items-center border-b border-gray-700 pb-3 mb-3">
           <div className="w-8 text-center">#</div>
@@ -49,9 +49,7 @@ const SongDataBand = ({ songs }: { songs: SongParams[] }) => {
             </div>
           ))
         ) : (
-          <div className="col-span-4 p-4 bg-gray-900 rounded-lg shadow-md min-h-[200px] flex flex-col items-center justify-center">
-            <p className="text-gray-500">No songs found.</p>
-          </div>
+          <p className="text-gray-500">No songs found.</p>
         )}
       </div>
     </div>

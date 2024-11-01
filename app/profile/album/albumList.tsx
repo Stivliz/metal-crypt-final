@@ -84,8 +84,8 @@ export function AlbumList() {
                     isZoomed
                     src={album.image}
                     alt={album.name}
-                    width={200}
-                    height={200}
+                    width={150}
+                    height={150}
                     className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
                   />
                 </button>

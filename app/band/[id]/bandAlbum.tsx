@@ -26,6 +26,9 @@ interface BandParams {
 const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedSongs, setSelectedSongs] = useState<string[]>([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalSongOpen, setIsModalSongOpen] = useState(false);
+  const [selectedAlbum, setSelectedAlbum] = useState<AlbumParams | null>(null);
 
   const openModal = (songs: string[]) => {
     setSelectedSongs(songs);
@@ -35,6 +38,16 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
   const closeModal = () => {
     setIsOpen(false);
     setSelectedSongs([]);
+  };
+
+  const toggleModal = {
+    openModalForm: function () {
+      return setIsModalOpen(!isModalOpen);
+    },
+    openModalSong: function (album: AlbumParams) {
+      setSelectedAlbum(album);
+      return setIsModalSongOpen(!isModalSongOpen);
+    },
   };
 
   return (
@@ -49,14 +62,21 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
                 key={album._id}
                 className="p-4 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
               >
-                <Image
-                  isZoomed
-                  src={album.image}
-                  alt={`${album.name} album cover`}
-                  width={150}
-                  height={150}
-                  className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
-                />
+                {album.image && (
+                  <button
+                    className=""
+                    onClick={() => toggleModal.openModalSong(album)}
+                  >
+                    <Image
+                      isZoomed
+                      src={album.image}
+                      alt={`${album.name} album cover`}
+                      width={150}
+                      height={150}
+                      className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
+                    />
+                  </button>
+                )}
                 <h3 className="text-lg font-bold mt-2 text-white">
                   {album.name}
                 </h3>
@@ -75,6 +95,12 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
         </div>
       </div>
       {/* Modal para mostrar las canciones del álbum */}
+      {isModalSongOpen && selectedAlbum && (
+        <SongModal
+          album={selectedAlbum}
+          closeModal={toggleModal.openModalSong}
+        />
+      )}
       <SongModal isOpen={isOpen} onClose={closeModal} songs={selectedSongs} />
     </>
   );

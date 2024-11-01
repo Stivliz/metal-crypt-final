@@ -1,18 +1,42 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface AlbumSongsModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: (songs: string[]) => void;
+  releaseType: "SINGLE" | "EP" | "ALBUM"; // Agregamos releaseType como prop
 }
 
 const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
+  releaseType,
 }) => {
   const [songs, setSongs] = useState<string[]>([""]);
+  const [canAddMoreSongs, setCanAddMoreSongs] = useState(true);
+
+  // Definir límites de canciones según el tipo de lanzamiento
+  const getSongLimits = () => {
+    switch (releaseType) {
+      case "SINGLE":
+        return { min: 1, max: 1 };
+      case "EP":
+        return { min: 4, max: 6 };
+      case "ALBUM":
+        return { min: 7, max: Infinity };
+      default:
+        return { min: 1, max: Infinity };
+    }
+  };
+
+  const { min, max } = getSongLimits();
+
+  // Verificar si el botón "Agregar Canción" debe estar deshabilitado
+  useEffect(() => {
+    setCanAddMoreSongs(songs.length < max);
+  }, [songs, max]);
 
   const handleSongChange = (index: number, value: string) => {
     const updatedSongs = [...songs];
@@ -21,17 +45,25 @@ const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
   };
 
   const addSong = () => {
-    setSongs([...songs, ""]);
+    if (songs.length < max) {
+      setSongs([...songs, ""]);
+    }
   };
 
   const removeSong = (index: number) => {
-    const updatedSongs = songs.filter((_, i) => i !== index);
-    setSongs(updatedSongs);
+    if (songs.length > min) {
+      const updatedSongs = songs.filter((_, i) => i !== index);
+      setSongs(updatedSongs);
+    }
   };
 
   const handleConfirm = () => {
-    onConfirm(songs);
-    onClose();
+    if (songs.length >= min && songs.length <= max) {
+      onConfirm(songs);
+      onClose();
+    } else {
+      alert(`El número de canciones debe ser entre ${min} y ${max}`);
+    }
   };
 
   if (!isOpen) return null;
@@ -63,15 +95,15 @@ const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
                   value={song}
                   onChange={(e) => handleSongChange(index, e.target.value)}
                   className="flex-1 px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md
-                                                        text-white placeholder-gray-400 focus:outline-none focus:ring-2
-                                                        focus:ring-blue-500 focus:border-transparent"
+                  text-white placeholder-gray-400 focus:outline-none focus:ring-2
+                  focus:ring-blue-500 focus:border-transparent"
                 />
-                {songs.length > 1 && (
+                {songs.length > min && (
                   <button
                     type="button"
                     onClick={() => removeSong(index)}
                     className="px-3 py-2 text-gray-400 hover:text-red-400
-                                                            hover:bg-red-400/10 rounded-md transition-colors"
+                    hover:bg-red-400/10 rounded-md transition-colors"
                   >
                     🗑
                   </button>
@@ -86,8 +118,8 @@ const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
           <button
             type="button"
             onClick={addSong}
-            className="w-full px-4 py-2 bg-zinc-700 hover:bg-zinc-600
-                                            text-white rounded-md transition-colors"
+            className="w-full px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-white rounded-md transition-colors"
+            disabled={!canAddMoreSongs} // Deshabilitar si se alcanza el límite
           >
             + Agregar Canción
           </button>
@@ -96,16 +128,14 @@ const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 bg-zinc-700 hover:bg-zinc-600
-                                                text-white rounded-md transition-colors"
+              className="flex-1 px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-white rounded-md transition-colors"
             >
               Cancelar
             </button>
             <button
               type="button"
               onClick={handleConfirm}
-              className="flex-1 px-4 py-2 bg-blue-950 hover:bg-blue-900
-                                                text-white rounded-md transition-colors"
+              className="flex-1 px-4 py-2 bg-blue-950 hover:bg-blue-900 text-white rounded-md transition-colors"
             >
               Aceptar
             </button>
