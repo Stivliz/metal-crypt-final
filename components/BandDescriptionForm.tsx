@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from 'axios';
 import BandsService from "@/services/bands.service";
 import Cookies from "universal-cookie";
 
@@ -22,8 +21,7 @@ const BandDescriptionForm: React.FC<BandDescriptionFormProps> = ({ idBand, initi
     setLoading(true);
     setError(null);
     setSuccess(false);
-    console.log('Band ID:', idBand); 
-    console.log('Description:', description);
+
     try {
       const response = await $Band.updateDescrition(description, idBand )
 
@@ -36,6 +34,7 @@ const BandDescriptionForm: React.FC<BandDescriptionFormProps> = ({ idBand, initi
 
         const cookies = new Cookies();
         cookies.set("description", description, { path: "/" });
+        setDescription("")
       } else {
         setError('Error actualizando la descripción');
       }

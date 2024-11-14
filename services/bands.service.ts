@@ -47,6 +47,18 @@ export default class BandsService {
         } catch (error) {
             return { status: false, data: error }
         }
+    }
 
+    async fetchBandDescription(_id:string) {
+        try {
+            const response = await axios.get(`${this.API_URL}/bands/${_id}/descriptionid`);
+            console.log("A",response);
+            console.log("B",response.data.description);
+            
+            return response.data.description;
+          } catch (error) {
+            console.error("Error al obtener la descripción de la banda:", error);
+            throw error;
+          }
     }
 }

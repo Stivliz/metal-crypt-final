@@ -32,18 +32,17 @@ const DescriptionProfile = () => {
       const handleUpdateDescription = (newDescription: string) => {
         setDescription(newDescription);
       };
+
     
-      console.log(cookie.description)
-      console.log(description);
   return (
-    <> 
-      <p>{description}</p>
+    <div className=""> 
+      <div>{description=='undefined' ? (<p>Aun no has descrito a tu banda</p>): (<p>{description}</p>)}</div>
       <BandDescriptionForm
         idBand={cookie.band_id}
         initialDescriptionBand={cookie.description}
         onUpdateDescription={handleUpdateDescription}
       />
-    </>
+    </div>
   );
 };
 

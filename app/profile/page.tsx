@@ -2,12 +2,10 @@
 import { useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import Image from "next/image";
-// import { CreateAlbum } from "./album/createAlbum";
 import NavRoot from "@/components/NavRoot";
 import NavBar from "@/components/NavBar";
-import { AlbumList } from "./album/albumList";
-import BandDescriptionForm from "@/components/BandDescriptionForm";
-import TabsAlbum from "./album/tabsAlbum";
+
+import TabsPage from "./tabsPage";
 
 const Profile = () => {
   const [cookie, setCookie] = useState({
@@ -15,11 +13,9 @@ const Profile = () => {
     bandname: null,
     genre: null,
     logoBand: "",
-    formedDate: null,
+    formedDate: "",
     description: null
   });
-
-  const [description, setDescription] = useState<string>("");
 
   useEffect(() => {
     const cookies = new Cookies();
@@ -41,35 +37,25 @@ const Profile = () => {
     });
   }, []);
 
-  
-  useEffect(() => {
-    if (cookie.description) {
-      setDescription(cookie.description);
-    }
-  }, [cookie.description]);
-
-  const handleUpdateDescription = (newDescription: string) => {
-    setDescription(newDescription);
-  };
-
-  console.log(cookie.description)
-  console.log(description);
-  
   return (
     <div>
       <NavBar />
       <NavRoot />
       <div>
-    <div className="flex flex-col items-center h-[100vh] bg-black">
+    <div className="flex flex-col items-center h-[100vh]">
       <div className="w-[60%]">
-        {/* <NavBar />
-        <NavRoot /> */}
-        <Image width={400} height={400} src={cookie.logoBand} alt="photo" />
-        <p>bandname: {cookie.bandname}</p>
-        <p>genre: {cookie.genre}</p>
-
+        <div className="flex ">
+          <div>
+            <h2 className=" text-3xl">{cookie.bandname}</h2>
+            <Image width={300} height={300} src={cookie.logoBand} alt="photo" />
+          </div>
+          <div className="pt-9 pl-5">
+            <div className="text-red-800 flex">Genre: <p className="text-white ml-12"> {cookie.genre}</p> </div>
+            <div className="text-red-800 flex">Formed in: <p className="text-white ml-4"> {new Date(cookie.formedDate).getFullYear()}</p> </div>
+          </div>
+        </div>
         <div className="mt-10 mb-16">
-          <TabsAlbum />
+          <TabsPage />
         </div>
       </div>
     </div>

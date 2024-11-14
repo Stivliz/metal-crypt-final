@@ -3,21 +3,26 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import AlbumDataBand from "./bandAlbum";
 import Cookies from "universal-cookie";
 import { useEffect, useState } from "react";
+import BandsService from "@/services/bands.service";
 
-const TabsBand = ({ albums }: any) => {
+const TabsBand = ({ albums, bandId }: { albums: any; bandId: string }) => {
 
-  const [cookie, setCookie] = useState({
-    description: null
-  });
+  const [bandDescription, setBandDescription] = useState<string | null>(null);
 
   useEffect(() => {
-    const cookies = new Cookies();
-    const description = cookies.get("description");
+    const fetchDescription = async () => {
+      try {
+        const $Description = new BandsService();
+        const response = await $Description.fetchBandDescription(bandId);
+        setBandDescription(response);
+      } catch (error) {
+        console.error("Error fetching description:", error);
+      }
+    };
 
-    setCookie({
-      description
-    });
-  }, []);
+    fetchDescription();
+  }, [bandId]);
+
 
   return (
     <div className="flex w-full flex-col ">
@@ -25,7 +30,7 @@ const TabsBand = ({ albums }: any) => {
         <Tab key="description" title="Description">
           <Card>
             <CardBody>
-              {cookie.description==null ? (<p>No info</p>) : (<p>{cookie.description}</p>)}
+              {bandDescription==null ? (<p>No info</p>) : (<p>{bandDescription}</p>)}
             </CardBody>
           </Card>
         </Tab>

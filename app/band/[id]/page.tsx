@@ -110,7 +110,7 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
 
           {/* Renderizando los álbumes de la banda */}
           <div className="my-10">
-            <TabsBand albums={data.albums} />
+            <TabsBand albums={data.albums} bandId={data._id}/>
           </div>
         </div>
       </div>
