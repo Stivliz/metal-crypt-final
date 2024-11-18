@@ -60,13 +60,17 @@ const SongList = () => {
 
   return (
     <div className=" rounded-lg shadow-md">
-      {songs.length > 0 && (
+      {songs.length > 0 ? (
         <div className="flex items-center border-b border-gray-700 pb-3 mb-3">
           <div className="w-8 text-center">#</div>
           <div className="flex-1 pl-3">Título</div>
           <div className="w-48">Artista</div>
           <div className="w-36">Género</div>
           <div className="w-28 ">Discography</div>
+        </div>
+      ) : (
+        <div className="col-span-4 p-4 bg-gray-900 rounded-lg shadow-md min-h-[200px] flex flex-col items-center justify-center">
+          <p className="text-gray-500">No songs found.</p>
         </div>
       )}
       <div>
