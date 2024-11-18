@@ -1,9 +1,29 @@
 "use client";
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import AlbumDataBand from "./bandAlbum";
+import Cookies from "universal-cookie";
+import { useEffect, useState } from "react";
+import BandsService from "@/services/bands.service";
 import SongDataBand from "./bandSong";
 
-const TabsBand = ({ albums }: any) => {
+const TabsBand = ({ albums, bandId }: { albums: any; bandId: string }) => {
+
+  const [bandDescription, setBandDescription] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDescription = async () => {
+      try {
+        const $Description = new BandsService();
+        const response = await $Description.fetchBandDescription(bandId);
+        setBandDescription(response);
+      } catch (error) {
+        console.error("Error fetching description:", error);
+      }
+    };
+
+    fetchDescription();
+  }, [bandId]);
+
   const songs = albums.flatMap((album: any) =>
     album.songs.map((song: any) => ({
       _id: song._id,
@@ -17,16 +37,14 @@ const TabsBand = ({ albums }: any) => {
     })),
   );
 
+
   return (
     <div className="flex w-full flex-col ">
-      <Tabs aria-label="Options">
+      <Tabs aria-label="Dynamic tabs" >
         <Tab key="description" title="Description">
           <Card>
-            <CardBody className="text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+            <CardBody>
+              {bandDescription==null ? (<p>No info</p>) : (<p>{bandDescription}</p>)}
             </CardBody>
           </Card>
         </Tab>

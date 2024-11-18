@@ -3,7 +3,7 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import { AlbumList } from "./album/albumList";
 import CreateSong from "./song/createSong";
 import SongList from "./song/songList";
-
+import DescriptionProfile from "./description/descriptionProfile";
 const TabsPage = () => {
   return (
     <div className="flex w-full flex-col  relative">
@@ -11,10 +11,7 @@ const TabsPage = () => {
         <Tab key="description" title="Description">
           <Card>
             <CardBody className="text-gray-500">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
+                <DescriptionProfile />
             </CardBody>
           </Card>
         </Tab>

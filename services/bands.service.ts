@@ -5,7 +5,7 @@ export default class BandsService {
     token: string | null;
 
     constructor(token = null) {
-        this.API_URL = process.env.NEXT_PUBLIC_ULR_PRODUCTION;
+        this.API_URL = process.env.NEXT_PUBLIC_API_MC_URL;
         this.token = token;
     }
 
@@ -37,5 +37,28 @@ export default class BandsService {
         } catch (error) {
             return { status: false, data: error }
         }
+    }
+
+    async updateDescrition(description:string, _id:string) {
+        try {
+            const {data} = await axios.put(`${this.API_URL}/bands/${_id}/description`, {description})
+
+            return {status:true, data}
+        } catch (error) {
+            return { status: false, data: error }
+        }
+    }
+
+    async fetchBandDescription(_id:string) {
+        try {
+            const response = await axios.get(`${this.API_URL}/bands/${_id}/descriptionid`);
+            console.log("A",response);
+            console.log("B",response.data.description);
+            
+            return response.data.description;
+          } catch (error) {
+            console.error("Error al obtener la descripción de la banda:", error);
+            throw error;
+          }
     }
 }

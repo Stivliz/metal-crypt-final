@@ -22,7 +22,7 @@ export default class SongService {
   async PostSong(song: SongForm) {
     try {
       const cookies = new Cookies();
-      const tokenCookies = cookies.get("token" || "");
+      const tokenCookies = cookies.get("token");
       const { data } = await axios.post(`${this.API_URL}/song`, song, {
         headers: {
           "Content-Type": "application/json",

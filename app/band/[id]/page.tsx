@@ -98,32 +98,41 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
       <NavRoot />
       <div className="flex flex-col items-center h-[100vh] bg-black">
         <div className="w-[60%]">
-          <h1>{data?.bandname ?? "Band name not available"}</h1>
-          {/* Encadenamiento opcional para evitar error si genre es undefined */}
-          <p>{data?.genre?.join(", ") || "Genres not available"}</p>
-          {data?.logoBand ? (
-            <Image
-              width={200}
-              height={200}
-              src={data.logoBand}
-              alt="band logo"
-            />
-          ) : (
-            <p>Logo not available</p>
-          )}
-          <p>
-            {/* Manejo de fechas con verificación */}
-            {data?.formedDate
-              ? new Date(data.formedDate).toISOString().split("T")[0]
-              : "Formed date not available"}
-          </p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
+          <div className="flex">
+            <div>
+              <h2 className="text-3xl">{data?.bandname ?? "Band name not available"}</h2>  
 
-          <div>Discography</div>
+              {data?.logoBand ? (
+                <Image
+                  width={200}
+                  height={200}
+                  src={data.logoBand}
+                  alt="band logo"
+                />
+              ) : (
+                <p>Logo not available</p>
+              )}
+            </div>
+
+            <div className="pt-9 pl-5">
+              <div className="text-red-800 flex">Genre: <p className="text-white ml-12">{data?.genre?.join(", ") || "Genres not available"}</p> </div>
+              <div className="text-red-800 flex">
+              Formed in:
+                <p className="text-white ml-4">
+                  {/* Manejo de fechas con verificación */}
+                  {data?.formedDate
+                    ? new Date(data.formedDate).toISOString().split("T")[0]
+                    : "Formed date not available"}
+                </p>
+              </div>       
+            </div>
+          </div>
+          {/* Encadenamiento opcional para evitar error si genre es undefined */}
+          {/* <p>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p> */}
 
           {/* Renderizando los álbumes de la banda */}
           <div className="my-10">
-            <TabsBand albums={data.albums} />
+            <TabsBand albums={data.albums} bandId={data._id}/>
           </div>
         </div>
       </div>
