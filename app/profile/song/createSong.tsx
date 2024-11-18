@@ -132,155 +132,156 @@ const CreateSong = ({ closeModal }: any) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="min-h-screen">
-      <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-        <div className="flex justify-end mx-auto">
-          <button
-            className="bg-gray-800 text-white py-1 px-3 font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
-            onClick={() => closeModal()}
-            aria-label="Close modal"
-          >
-            <span className="text-lg font-bold">✕</span>{" "}
-            {/* O puedes usar "X" */}
-          </button>
-        </div>
-        <div className="bg-zinc-800 p-6 rounded-xl max-w-md w-full mx-4">
-          <h2 className="text-xl font-bold text-white mb-6">Create New Song</h2>
+    <form onSubmit={handleSubmit} className="">
+      <div className="fixed inset-0 flex justify-center items-center  top-0 left-0 right-0 bottom-0 z-50">
+        <div className="bg-zinc-800 p-4 rounded-xl max-w-md mx-auto ">
+          <div className="flex justify-end mx-auto">
+            <button
+              className="bg-gray-800 text-white py-1 px-3 font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+              onClick={() => closeModal()}
+              aria-label="Close modal"
+            >
+              <span className="text-lg font-bold">✕</span>{" "}
+              {/* O puedes usar "X" */}
+            </button>
+          </div>
+          <div className="bg-zinc-800 p-6 rounded-xl max-w-md w-full mx-4">
+            <div className="space-y-4">
+              {/* Name Input */}
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-200 mb-2"
+                >
+                  Song name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={song.name}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                  placeholder="Enter song name"
+                  required
+                />
+              </div>
 
-          <div className="space-y-4">
-            {/* Name Input */}
-            <div>
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium text-gray-200 mb-2"
-              >
-                Song name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={song.name}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
-                placeholder="Enter song name"
-                required
-              />
-            </div>
+              {/* Artist Input */}
+              <div>
+                <label
+                  htmlFor="artist"
+                  className="block text-sm font-medium text-gray-200 mb-2"
+                >
+                  Artist
+                </label>
+                <input
+                  type="text"
+                  id="artist"
+                  name="artist"
+                  value={song.artist}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                  placeholder="Enter artist name"
+                  required
+                />
+              </div>
 
-            {/* Artist Input */}
-            <div>
-              <label
-                htmlFor="artist"
-                className="block text-sm font-medium text-gray-200 mb-2"
-              >
-                Artist
-              </label>
-              <input
-                type="text"
-                id="artist"
-                name="artist"
-                value={song.artist}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
-                placeholder="Enter artist name"
-                required
-              />
-            </div>
+              {/* Image Upload */}
+              <div>
+                <label
+                  htmlFor="image"
+                  className="block text-sm font-medium text-gray-200 mb-2"
+                >
+                  Image
+                </label>
+                <input
+                  type="file"
+                  id="image"
+                  name="image"
+                  accept="image/*"
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-black file:text-white hover:file:bg-zinc-900"
+                />
+              </div>
 
-            {/* Image Upload */}
-            <div>
-              <label
-                htmlFor="image"
-                className="block text-sm font-medium text-gray-200 mb-2"
-              >
-                Image
-              </label>
-              <input
-                type="file"
-                id="image"
-                name="image"
-                accept="image/*"
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-black file:text-white hover:file:bg-zinc-900"
-              />
-            </div>
+              {/* Genre Input */}
+              <div>
+                <label
+                  htmlFor="genre"
+                  className="block text-sm font-medium text-gray-200 mb-2"
+                >
+                  Genre (comma-separated)
+                </label>
+                <input
+                  type="text"
+                  id="genre"
+                  name="genre"
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                  placeholder="Rock, Pop, Jazz"
+                />
+              </div>
 
-            {/* Genre Input */}
-            <div>
-              <label
-                htmlFor="genre"
-                className="block text-sm font-medium text-gray-200 mb-2"
-              >
-                Genre (comma-separated)
-              </label>
-              <input
-                type="text"
-                id="genre"
-                name="genre"
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
-                placeholder="Rock, Pop, Jazz"
-              />
-            </div>
+              {/* Year Input */}
+              <div>
+                <label
+                  htmlFor="year"
+                  className="block text-sm font-medium text-gray-200 mb-2"
+                >
+                  Year
+                </label>
+                <input
+                  type="date"
+                  id="year"
+                  name="year"
+                  value={song.year}
+                  onChange={handleInputChange}
+                  className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
+                />
+              </div>
 
-            {/* Year Input */}
-            <div>
-              <label
-                htmlFor="year"
-                className="block text-sm font-medium text-gray-200 mb-2"
-              >
-                Year
-              </label>
-              <input
-                type="date"
-                id="year"
-                name="year"
-                value={song.year}
-                onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white"
-              />
-            </div>
+              {/* Duration Inputs */}
 
-            {/* Duration Inputs */}
-            <div>
-              <label className="block text-sm font-medium text-gray-200 mb-2">
-                Duration
-              </label>
-              <div className="flex space-x-2">
-                <div className="w-1/2">
-                  <input
-                    type="number"
-                    name="minutes"
-                    value={minutes}
-                    onChange={handleDurationChange}
-                    min="0"
-                    className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
-                    placeholder="Minutes"
-                  />
-                </div>
-                <div className="w-1/2">
-                  <input
-                    type="number"
-                    name="seconds"
-                    value={seconds}
-                    onChange={handleDurationChange}
-                    min="0"
-                    max="59"
-                    className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
-                    placeholder="Seconds"
-                  />
+              <div>
+                <label className="block text-sm font-medium text-gray-200 mb-2">
+                  Duration
+                </label>
+                <div className="flex space-x-2">
+                  <div className="w-1/2">
+                    <input
+                      type="number"
+                      name="minutes"
+                      value={minutes}
+                      onChange={handleDurationChange}
+                      min="0"
+                      className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                      placeholder="Minutes"
+                    />
+                  </div>
+                  <div className="w-1/2">
+                    <input
+                      type="number"
+                      name="seconds"
+                      value={seconds}
+                      onChange={handleDurationChange}
+                      min="0"
+                      max="59"
+                      className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+                      placeholder="Seconds"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className="w-full px-4 py-2.5 bg-blue-950 hover:bg-blue-900 transition-colors duration-200 text-white font-medium rounded-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800"
-            >
-              Create Song
-            </button>
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="w-full px-4 py-2.5 bg-blue-950 hover:bg-blue-900 transition-colors duration-200 text-white font-medium rounded-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800"
+              >
+                Create Song
+              </button>
+            </div>
           </div>
         </div>
       </div>

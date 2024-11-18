@@ -1,9 +1,8 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import CardAlbumSong from "@/components/cardAlbumSong";
 import AlbumService from "@/services/album.service";
-//import { PostAlbum } from "./create";
 
 interface Song {
   name: string;
@@ -12,8 +11,9 @@ interface Song {
 interface FormAlbum {
   name: string;
   artist?: string;
-  songs?: Song[]; // Aquí cambiamos para reflejar que `songs` es un array de objetos { name: string }
+  songs?: Song[];
   image?: string | undefined;
+  releaseType: "ALBUM" | "EP" | "SINGLE" | undefined; // Cambiado el tipo
   genre?: string[];
   year?: string;
 }
@@ -22,17 +22,18 @@ export const CreateAlbum = ({ closeModal }: any) => {
   const [album, setAlbum] = useState<FormAlbum>({
     name: "",
     artist: "",
-    songs: [], // Inicializamos como un array vacío de objetos Song
+    songs: [],
     image: undefined,
+    releaseType: undefined,
     genre: [],
     year: "",
   });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true); // Estado para controlar los campos deshabilitados
+
   const $Album = new AlbumService();
 
-  console.log("album:", album);
-
-  // Función para convertir archivo a base64
   const convertToBase64 = (file: File | null) => {
     return new Promise<string | undefined>((resolve, reject) => {
       if (!file) return resolve(undefined);
@@ -43,36 +44,31 @@ export const CreateAlbum = ({ closeModal }: any) => {
     });
   };
 
-  const handleInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value, files } = e.target;
+  const handleInputChange = async (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
 
-    if (name === "image" && files && files[0]) {
-      const base64Image = await convertToBase64(files[0]); // Convertir imagen a base64
-      setAlbum({
-        ...album,
-        image: base64Image,
-      });
+    if (name === "releaseType") {
+      setAlbum({ ...album, releaseType: value as "ALBUM" | "EP" | "SINGLE" });
+      setIsDisabled(false); // Habilitar campos al seleccionar `releaseType`
+    } else if (name === "image" && "files" in e.target && e.target.files?.[0]) {
+      const base64Image = await convertToBase64(e.target.files[0]);
+      setAlbum({ ...album, image: base64Image });
     } else if (name === "genre") {
       setAlbum({
         ...album,
         genre: value.split(",").map((item) => item.trim()),
       });
     } else if (name === "year") {
-      setAlbum({
-        ...album,
-        year: value,
-      });
+      setAlbum({ ...album, year: value });
     } else {
-      setAlbum({
-        ...album,
-        [name]: value,
-      });
+      setAlbum({ ...album, [name]: value });
     }
   };
 
-  // Función para estructurar correctamente las canciones
   const handleSongsConfirm = (songs: string[]) => {
-    const formattedSongs = songs.map((song) => ({ name: song })); // Formateamos cada canción como { name: song }
+    const formattedSongs = songs.map((song) => ({ name: song }));
     setAlbum({ ...album, songs: formattedSongs });
   };
 
@@ -80,10 +76,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
     e.preventDefault();
 
     try {
-      // Enviar el álbum al backend con la estructura correcta de canciones
       const response = await $Album.PostAlbum(album);
-
-      console.log("* Data desde el backend --->", response?.status);
 
       if (response?.status === true) {
         Swal.fire("Álbum creado exitosamente!");
@@ -98,43 +91,84 @@ export const CreateAlbum = ({ closeModal }: any) => {
   };
 
   const cookies = new Cookies();
-  console.log("* Cookies ---> ", cookies.get("band_id"));
+
+  const getLabelAndPlaceholder = () => {
+    switch (album.releaseType) {
+      case "ALBUM":
+        return { label: "Album Name", placeholder: "Enter album name" };
+      case "EP":
+        return { label: "EP Name", placeholder: "Enter EP name" };
+      case "SINGLE":
+        return { label: "Single Name", placeholder: "Enter single name" };
+      default:
+        return { label: "Name", placeholder: "Enter name" };
+    }
+  };
+
+  const { label, placeholder } = getLabelAndPlaceholder();
+
+  console.log("Album FORM:", album);
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="fixed inset-0 flex justify-center items-center  top-0 left-0 right-0 bottom-0 z-50">
-        <div className="bg-zinc-800 p-4 rounded-xl max-w-md mx-auto ">
-          {/* Album Name */}
+      <div className="fixed inset-0 flex justify-center items-center z-50">
+        <div className="bg-zinc-800 p-4 rounded-xl max-w-md mx-auto">
           <div className="flex justify-end mx-auto">
             <button
-              className="bg-gray-800 text-white py-1 px-3 font-semibold rounded-full shadow transition duration-200 ease-in-out hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-opacity-50"
+              className="bg-gray-800 text-white py-1 px-3 font-semibold rounded-full shadow"
               onClick={() => closeModal()}
               aria-label="Close modal"
             >
-              <span className="text-lg font-bold">✕</span>{" "}
-              {/* O puedes usar "X" */}
+              ✕
             </button>
           </div>
-          <div className="mb-4">
+
+          {/* Release Type */}
+          <div className="mb-3">
+            <label
+              htmlFor="releaseType"
+              className="block text-sm font-medium text-gray-200 mb-2"
+            >
+              Release Type
+            </label>
+            <select
+              id="releaseType"
+              name="releaseType"
+              onChange={handleInputChange}
+              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md text-white"
+              required
+            >
+              <option value="" disabled selected>
+                Select release type
+              </option>
+              <option value="ALBUM">Album</option>
+              <option value="EP">EP</option>
+              <option value="SINGLE">Single</option>
+            </select>
+          </div>
+
+          {/* Name */}
+          <div className="mb-3">
             <label
               htmlFor="name"
               className="block text-sm font-medium text-gray-200 mb-2"
             >
-              Album name
+              {label}
             </label>
             <input
               type="text"
               id="name"
               name="name"
               onChange={handleInputChange}
-              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
-              placeholder="Enter album name"
+              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md text-white"
+              placeholder={placeholder}
               required
+              disabled={isDisabled}
             />
           </div>
 
-          {/* Artist */}
-          <div className="mb-4">
+          {/* Otros campos como artista, canciones, imagen, etc. */}
+          <div className="mb-3">
             <label
               htmlFor="artist"
               className="block text-sm font-medium text-gray-200 mb-2"
@@ -146,33 +180,37 @@ export const CreateAlbum = ({ closeModal }: any) => {
               id="artist"
               name="artist"
               onChange={handleInputChange}
-              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md text-white"
               placeholder="Enter artist name"
+              disabled={isDisabled}
             />
           </div>
 
-          {/* Create Songs Button */}
-          <div className="mb-4">
+          {/* Botón para crear lista de canciones */}
+          <div className="mb-3">
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="w-full px-4 py-2.5 bg-black hover:bg-zinc-900 transition-colors duration-200 text-white font-medium rounded-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800"
+              className="w-full px-4 py-2 bg-black text-white font-medium rounded-md"
+              disabled={isDisabled}
             >
               Create list songs
             </button>
           </div>
 
-          {/* Modal */}
-          {isModalOpen && (
+          {isModalOpen && album.releaseType && (
             <CardAlbumSong
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               onConfirm={handleSongsConfirm}
+              releaseType={album.releaseType as "ALBUM" | "EP" | "SINGLE"}
             />
           )}
 
+          {/* Otros campos como imagen, género, y año, todos deshabilitados */}
+
           {/* Image Upload */}
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               htmlFor="picture"
               className="block text-sm font-medium text-gray-200 mb-2"
@@ -191,8 +229,8 @@ export const CreateAlbum = ({ closeModal }: any) => {
             </div>
           </div>
 
-          {/* Genre */}
-          <div className="mb-4">
+          {/* Genre*/}
+          <div className="mb-3">
             <label
               htmlFor="genre"
               className="block text-sm font-medium text-gray-200 mb-2"
@@ -204,13 +242,14 @@ export const CreateAlbum = ({ closeModal }: any) => {
               id="genre"
               name="genre"
               onChange={handleInputChange}
-              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-gray-400"
+              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md text-white"
               placeholder="Enter genre"
+              disabled={isDisabled}
             />
           </div>
 
           {/* Year */}
-          <div className="mb-4">
+          <div className="mb-3">
             <label
               htmlFor="year"
               className="block text-sm font-medium text-gray-200 mb-2"
@@ -226,10 +265,11 @@ export const CreateAlbum = ({ closeModal }: any) => {
             />
           </div>
 
-          {/* Submit Button */}
+          {/* Botón de enviar */}
           <button
             type="submit"
-            className="w-full px-4 py-2.5 bg-blue-950 hover:bg-blue-900 transition-colors duration-200 text-white font-medium rounded-md focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-zinc-800"
+            className="w-full px-4 py-2 bg-blue-950 text-white font-medium rounded-md"
+            disabled={isDisabled}
           >
             Crear álbum
           </button>

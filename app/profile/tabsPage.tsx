@@ -15,7 +15,7 @@ const TabsPage = () => {
             </CardBody>
           </Card>
         </Tab>
-        <Tab key="albums" title="Albums">
+        <Tab key="discography" title="Discography">
           <Card>
             <CardBody>
               <AlbumList />

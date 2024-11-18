@@ -12,6 +12,7 @@ interface Album {
   artist: string;
   songs: { id: string; name: string }[];
   image: string;
+  releaseType: string;
   genre?: string[];
   year?: string;
 }
@@ -29,6 +30,7 @@ export function AlbumList() {
     async function fetchAlbums() {
       try {
         const result = await $Album.getAlbum();
+        console.log("result inside albumList(profile) -->", result);
         if (result.status) {
           setAlbums(result.data.message || []);
         } else {
@@ -82,8 +84,8 @@ export function AlbumList() {
                     isZoomed
                     src={album.image}
                     alt={album.name}
-                    width={200}
-                    height={200}
+                    width={150}
+                    height={150}
                     className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
                   />
                 </button>
@@ -98,7 +100,9 @@ export function AlbumList() {
               <h3 className="text-lg font-bold mt-2 text-white">
                 {album.name}
               </h3>
-              <p className="text-sm text-zinc-400">{album.year} • Album</p>
+              <p className="text-sm text-zinc-400">
+                {album.year} • {album.releaseType.toUpperCase()}
+              </p>
             </div>
           ))
         ) : (

@@ -4,6 +4,7 @@ import AlbumDataBand from "./bandAlbum";
 import Cookies from "universal-cookie";
 import { useEffect, useState } from "react";
 import BandsService from "@/services/bands.service";
+import SongDataBand from "./bandSong";
 
 const TabsBand = ({ albums, bandId }: { albums: any; bandId: string }) => {
 
@@ -23,10 +24,23 @@ const TabsBand = ({ albums, bandId }: { albums: any; bandId: string }) => {
     fetchDescription();
   }, [bandId]);
 
+  const songs = albums.flatMap((album: any) =>
+    album.songs.map((song: any) => ({
+      _id: song._id,
+      name: song.name,
+      artist: album.artist, // Usando el artista del álbum
+      image: album.image, // La imagen de la canción, si está disponible
+      duration: song.duration,
+      genre: song.genre || album.genre, // Usando el género del álbum si la canción no tiene uno
+      year: album.year.toString(), // Año del álbum
+      releaseType: album.releaseType, // Tipo de lanzamiento del álbum
+    })),
+  );
+
 
   return (
     <div className="flex w-full flex-col ">
-      <Tabs aria-label="Options">
+      <Tabs aria-label="Dynamic tabs" >
         <Tab key="description" title="Description">
           <Card>
             <CardBody>
@@ -44,8 +58,7 @@ const TabsBand = ({ albums, bandId }: { albums: any; bandId: string }) => {
         <Tab key="songs" title="Songs">
           <Card>
             <CardBody className="text-gray-500">
-              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-              officia deserunt mollit anim id est laborum.
+              <SongDataBand songs={songs} />
             </CardBody>
           </Card>
         </Tab>
