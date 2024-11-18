@@ -46,7 +46,7 @@ const Profile = () => {
       <div className="w-[60%]">
         <div className="flex ">
           <div>
-            <h2 className=" text-3xl">{cookie.bandname}</h2>
+            <h2 className="text-3xl">{cookie.bandname}</h2>
             <Image width={300} height={300} src={cookie.logoBand} alt="photo" />
           </div>
           <div className="pt-9 pl-5">

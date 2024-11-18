@@ -36,7 +36,7 @@ const DescriptionProfile = () => {
     
   return (
     <div className=""> 
-      <div>{description=='undefined' ? (<p>Aun no has descrito a tu banda</p>): (<p>{description}</p>)}</div>
+      <div>{description=='undefined' ? (<p>Aun no has descrito a tu banda</p>): (<p className="text-white">{description}</p>)}</div>
       <BandDescriptionForm
         idBand={cookie.band_id}
         initialDescriptionBand={cookie.description}
