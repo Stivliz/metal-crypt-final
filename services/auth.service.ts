@@ -20,7 +20,7 @@ export default class Authservice {
     token: string | null;
 
     constructor(token = null) {
-        this.API_URL = process.env.NEXT_PUBLIC_API_MC_URL;
+        this.API_URL = process.env.NEXT_PUBLIC_ULR_PRODUCTION;
         this.token = token;
     }
 
