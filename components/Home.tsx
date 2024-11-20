@@ -49,7 +49,9 @@ const BandsHome = () => {
       <div className="flex items-center justify-center mt-16">
         <div className="grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-[60%]">
 
-          {currentBands
+          { !currentBands.length ? (<div className="text-white flex justify-center items-center w-[100%]">LOADING DATA...</div>):
+          
+          (currentBands
             ?.map((e) => (
               <div
                 key={e._id}
@@ -67,10 +69,9 @@ const BandsHome = () => {
                     Genre/s: {e.genre}
                   </p>
                 </Link>
-                {/* <p className="text-center ">Formed: {new Date(e.formedDate).toISOString().split('T')[0]}</p> */}
               </div>
             ))
-            .reverse()}
+            .reverse())}
 
         </div>
       </div>
