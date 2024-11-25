@@ -63,16 +63,14 @@ export function AlbumList() {
     return <p>{error}</p>;
   }
 
-  console.log("albumssss --->", albums);
-
   return (
     <div>
-      <div className="grid grid-cols-4 gap-4">
+      <div className="flex items-center flex-col sm:flex sm:justify-between sm:flex-row">
         {albums.length > 0 ? (
           albums.map((album: Album) => (
             <div
               key={album._id}
-              className="p-4 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
+              className="max-w-max p-4 mb-2 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
             >
               {/*  <p className="text-lg">Artist: {album.artist}</p>*/}
               {album.image && (
@@ -118,10 +116,10 @@ export function AlbumList() {
         )}
         {albums.length > 0 && (
           <div
-            className="p-4 bg-gray-900 rounded-lg shadow-md flex justify-center items-center cursor-pointer min-h-[200px]"
+            className="p-4 bg-gray-900 rounded-lg shadow-md flex justify-center items-center cursor-pointer "
             onClick={toggleModal.openModalForm}
           >
-            <span className="text-5xl text-gray-600">+</span>
+            <span className=" flex justify-center items-center text-5xl text-gray-600 w-36 h-56">+</span>
           </div>
         )}
         {isModalSongOpen && selectedAlbum && (
