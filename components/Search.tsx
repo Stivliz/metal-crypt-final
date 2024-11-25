@@ -72,7 +72,7 @@ export default function Search(props: any) {
   return (
     <form
       ref={formRef}
-      className="flex justify-end w-[60%]"
+      className="flex justify-center w-[100%] md:w-[60%] md:justify-end"
       {...formProps}
       onSubmit={(event: React.FormEvent<HTMLFormElement>) => {
         // event.preventDefault()

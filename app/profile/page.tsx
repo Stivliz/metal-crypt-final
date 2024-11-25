@@ -43,8 +43,8 @@ const Profile = () => {
       <NavRoot />
       <div>
     <div className="flex flex-col items-center h-[100vh]">
-      <div className="w-[60%]">
-        <div className="flex ">
+      <div className="w-[80%] sm:w-[60%]">
+        <div className="sm:flex">
           <div>
             <h2 className="text-3xl">{cookie.bandname}</h2>
             <Image width={300} height={300} src={cookie.logoBand} alt="photo" />

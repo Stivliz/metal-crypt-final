@@ -90,15 +90,14 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
   }
 
   const data: BandParams | undefined = band.data;
-  console.log("*Band:", band);
-  console.log("*Data:", data);
+
   return (
     <div>
       <NavBar />
       <NavRoot />
       <div className="flex flex-col items-center h-[100vh] bg-black">
         <div className="w-[60%]">
-          <div className="flex">
+          <div className="sm:flex">
             <div>
               <h2 className="text-3xl">{data?.bandname ?? "Band name not available"}</h2>  
 

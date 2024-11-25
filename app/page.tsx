@@ -5,7 +5,7 @@ import NavRoot from "@/components/NavRoot";
 
 export default function Home() {
   return (
-    <body className="bg-black h-[100%] flex flex-col justify-center">
+    <body className="bg-black h-[100%] flex flex-col justify-center w-auto">
      
         <NavBar />
         <NavRoot />

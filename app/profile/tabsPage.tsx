@@ -6,7 +6,7 @@ import SongList from "./song/songList";
 import DescriptionProfile from "./description/descriptionProfile";
 const TabsPage = () => {
   return (
-    <div className="flex w-full flex-col  relative">
+    <div className="flex w-full flex-col  relative sm:w-[100%]">
       <Tabs aria-label="Options">
         <Tab key="description" title="Description">
           <Card>
