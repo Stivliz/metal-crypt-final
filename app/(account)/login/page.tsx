@@ -36,6 +36,11 @@ const Login = () => {
         }
       } catch (error) {
         console.error("Fetch error:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "user and password do not match",
+        });
       }
     };
 
