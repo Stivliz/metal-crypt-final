@@ -30,7 +30,7 @@ const Login = () => {
           cookie.set('description', data.band.description, {path: '/'})
 
           Swal.fire("Logged!");
-          router.push("/profile");
+          router.push("/");
         } else {
           router.push("/login");
         }

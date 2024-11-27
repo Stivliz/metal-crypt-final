@@ -30,9 +30,6 @@ export default class Authservice {
                 bandname,
                 password
             })
-            console.log(this.API_URL);
-            console.log(data);
-
             return {status: true, data}
         } catch(error:any) {
             return { status: false, data: error }
