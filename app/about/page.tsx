@@ -1,6 +1,5 @@
 import NavBar from "@/components/NavBar"
 import NavRoot from "@/components/NavRoot"
-import PopoverComponent from "@/components/Popover"
 
 const AboutUs = () => {
     return (
@@ -18,7 +17,7 @@ const AboutUs = () => {
                     </p>
                     <br />
                     <p>
-                    Nuestra misión es registrar y dar visibilidad a las bandas de metal underground de todo el mundo, desde los rincones más oscuros hasta los escenarios más pequeños. Aquí podrás descubrir nuevas bandas, sumergirte en entrevistas exclusivas, seguir las giras más intensas y mantenerte al día con las últimas noticias del mundo del metal.
+                    Nuestra misión es registrar y dar visibilidad a las bandas de metal underground de todo el mundo, desde los rincones más oscuros hasta los escenarios más pequeños. Aquí podrás descubrir nuevas bandas, publicar tus propios proyectos de metal extremo y más.
                     </p>
                     <br />
                     <p>
@@ -27,9 +26,7 @@ const AboutUs = () => {
                     <br />
                     <p>Att: Mormothius y Stivliz creadores de Metal Crypt</p>
                 </div>
-                <div className="flex justify-end">
-                    <PopoverComponent />
-                </div>
+
             </div>
 
             </div>
