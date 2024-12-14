@@ -47,7 +47,7 @@ const BandsHome = () => {
   return (
     <div className="bg-black h-[100%] ">
       <div className="flex items-center justify-center mt-16">
-        <div className="grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-[60%]">
+        <div className="grid place-items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 ">
 
           { !currentBands.length ? (<div className="text-white flex justify-center items-center w-[100%]">LOADING DATA...</div>):
           
@@ -59,8 +59,8 @@ const BandsHome = () => {
               >
                 <Link href={`/band/${e._id}`}>
                   <Image
-                    width={200}
-                    height={200}
+                    width={250}
+                    height={250}
                     src={e.logoBand}
                     alt="photo"
                   />
