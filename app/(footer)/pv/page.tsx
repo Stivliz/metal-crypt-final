@@ -15,7 +15,7 @@ const PoliticsPrivacy = () => {
       <NavBar />
       <NavRoot />
       <div className="flex justify-center text-lg md:text-2xl mt-4 md:mt-9 mb-6 md:mb-12">
-        <h2 className="text-gray-300">Privacy Policys</h2>
+        <h2 className="text-gray-300">Privacy Policy</h2>
       </div>
       <div className="mb-9">
         {pvItem.map((item: Item) => (
