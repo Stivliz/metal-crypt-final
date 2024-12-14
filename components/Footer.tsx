@@ -23,7 +23,7 @@ const Footer = () => {
       <div>
         <div className="flex justify-center mb-3">
           <Link
-            href="https://www.instagram.com"
+            href="https://www.instagram.com/metal_crypt666"
             target="_blank"
             rel="noopener noreferrer"
             className="mx-2 text-gray-300"
@@ -31,7 +31,7 @@ const Footer = () => {
             <FaInstagram size={24} />
           </Link>
           <Link
-            href="https://www.facebook.com"
+            href="https://www.facebook.com/profile.php?id=61570576227451"
             target="_blank"
             rel="noopener noreferrer"
             className="mx-2 text-gray-300"
@@ -39,7 +39,7 @@ const Footer = () => {
             <FaFacebookF size={24} />
           </Link>
           <Link
-            href="https://x.com"
+            href="https://x.com/MetalCrypt666?t=0qMLnRDzLz_mo4Ax6deixA&s=08"
             target="_blank"
             rel="noopener noreferrer"
             className="mx-2 text-gray-300"
