@@ -73,7 +73,10 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className="md:mt-10">
+        <Footer />
+      </div>
+      class
     </div>
   );
 };
