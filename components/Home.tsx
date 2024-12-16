@@ -65,7 +65,7 @@ const BandsHome = () => {
                     alt="photo"
                   />
                   <h2 className="text-center">{e.bandname}</h2>
-                  <p className="text-center break-words w-48">
+                  <p className="text-center break-words">
                     Genre/s: {e.genre}
                   </p>
                 </Link>
