@@ -5,6 +5,7 @@ import NavBar from "@/components/NavBar";
 import NavRoot from "@/components/NavRoot";
 import AlbumDataBand from "./bandAlbum";
 import TabsBand from "./tabs";
+import Footer from "@/components/Footer";
 
 interface BandParams {
   _id: string;
@@ -99,7 +100,9 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
         <div className="w-[60%]">
           <div className="sm:flex">
             <div>
-              <h2 className="text-3xl">{data?.bandname ?? "Band name not available"}</h2>  
+              <h2 className="text-3xl">
+                {data?.bandname ?? "Band name not available"}
+              </h2>
 
               {data?.logoBand ? (
                 <Image
@@ -114,16 +117,21 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
             </div>
 
             <div className="pt-9 pl-5">
-              <div className="text-red-800 flex">Genre: <p className="text-white ml-12">{data?.genre?.join(", ") || "Genres not available"}</p> </div>
               <div className="text-red-800 flex">
-              Formed in:
+                Genre:{" "}
+                <p className="text-white ml-12">
+                  {data?.genre?.join(", ") || "Genres not available"}
+                </p>{" "}
+              </div>
+              <div className="text-red-800 flex">
+                Formed in:
                 <p className="text-white ml-4">
                   {/* Manejo de fechas con verificación */}
                   {data?.formedDate
                     ? new Date(data.formedDate).toISOString().split("T")[0]
                     : "Formed date not available"}
                 </p>
-              </div>       
+              </div>
             </div>
           </div>
           {/* Encadenamiento opcional para evitar error si genre es undefined */}
@@ -131,10 +139,11 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
 
           {/* Renderizando los álbumes de la banda */}
           <div className="my-10">
-            <TabsBand albums={data.albums} bandId={data._id}/>
+            <TabsBand albums={data.albums} bandId={data._id} />
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

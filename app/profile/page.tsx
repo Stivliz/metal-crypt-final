@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 import Image from "next/image";
 import NavRoot from "@/components/NavRoot";
 import NavBar from "@/components/NavBar";
-
+import Footer from "@/components/Footer";
 import TabsPage from "./tabsPage";
 
 const Profile = () => {
@@ -14,7 +14,7 @@ const Profile = () => {
     genre: null,
     logoBand: "",
     formedDate: "",
-    description: null
+    description: null,
   });
 
   useEffect(() => {
@@ -26,14 +26,14 @@ const Profile = () => {
     const genre = cookies.get("genre");
     const formedDate = cookies.get("formedDate");
     const description = cookies.get("description");
-    
+
     setCookie({
       band_id,
       bandname,
       genre,
       logoBand,
       formedDate,
-      description
+      description,
     });
   }, []);
 
@@ -42,24 +42,38 @@ const Profile = () => {
       <NavBar />
       <NavRoot />
       <div>
-    <div className="flex flex-col items-center h-[100vh]">
-      <div className="w-[80%] sm:w-[60%]">
-        <div className="sm:flex">
-          <div>
-            <h2 className="text-3xl">{cookie.bandname}</h2>
-            <Image width={300} height={300} src={cookie.logoBand} alt="photo" />
+        <div className="flex flex-col items-center h-[100vh]">
+          <div className="w-[80%] sm:w-[60%]">
+            <div className="sm:flex">
+              <div>
+                <h2 className="text-3xl">{cookie.bandname}</h2>
+                <Image
+                  width={300}
+                  height={300}
+                  src={cookie.logoBand}
+                  alt="photo"
+                />
+              </div>
+              <div className="pt-9 pl-5">
+                <div className="text-red-800 flex">
+                  Genre: <p className="text-white ml-12"> {cookie.genre}</p>{" "}
+                </div>
+                <div className="text-red-800 flex">
+                  Formed in:{" "}
+                  <p className="text-white ml-4">
+                    {" "}
+                    {new Date(cookie.formedDate).getFullYear()}
+                  </p>{" "}
+                </div>
+              </div>
+            </div>
+            <div className="mt-10 mb-16">
+              <TabsPage />
+            </div>
           </div>
-          <div className="pt-9 pl-5">
-            <div className="text-red-800 flex">Genre: <p className="text-white ml-12"> {cookie.genre}</p> </div>
-            <div className="text-red-800 flex">Formed in: <p className="text-white ml-4"> {new Date(cookie.formedDate).getFullYear()}</p> </div>
-          </div>
-        </div>
-        <div className="mt-10 mb-16">
-          <TabsPage />
         </div>
       </div>
-    </div>
-    </div>
+      <Footer />
     </div>
   );
 };

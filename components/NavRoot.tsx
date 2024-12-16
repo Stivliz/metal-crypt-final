@@ -11,13 +11,13 @@ const NavRoot = () => {
               <p className="font-thin border-b-2 border-white">Home</p>
             </Link>
           </li>
-          {
+          {/*
             <li>
               <Link href="/news">
                 <p className="font-thin border-b-2 border-white">News</p>
               </Link>
             </li>
-          }
+          */}
           <li>
             <Link href="/about">
               <p className="font-thin border-b-2 border-white">About</p>
