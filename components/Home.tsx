@@ -17,6 +17,9 @@ const BandsHome = () => {
   const [bands, setBands] = useState<IntBands[]>([]);
   const bandsService = new BandsService();
 
+  console.log(bands);
+  
+
   const [currentPage, setCurrentPage] = useState(1);
 	const [elementPerPage, setElementPerPage] = useState(9);
 	const indexOfLastCatalogue = currentPage * elementPerPage;
@@ -66,8 +69,10 @@ const BandsHome = () => {
                   />
                   <h2 className="text-center">{e.bandname}</h2>
                   <p className="text-center break-words">
-                    Genre/s: {e.genre}
-                  </p>
+                    {
+                      `${e.genre.length > 1 ? 'Genres' : 'Genre'}: ${e.genre}`
+                    }
+                </p>
                 </Link>
               </div>
             ))
