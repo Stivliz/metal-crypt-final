@@ -76,7 +76,6 @@ const Profile = () => {
       <div className="md:mt-10">
         <Footer />
       </div>
-      class
     </div>
   );
 };

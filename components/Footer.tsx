@@ -33,7 +33,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className=" ">
+        <div>
           <div className="flex flex-col items-center space-y-2 text-gray-300">
             <Link href={"/pv"}>Privacy</Link>
             <Link className="md:hidden" href={"/about"}>
