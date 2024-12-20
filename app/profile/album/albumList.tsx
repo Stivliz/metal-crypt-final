@@ -35,7 +35,6 @@ export function AlbumList() {
     setLoading(true);
     try {
       const result = await $Album.getAlbum();
-      console.log("result inside albumList(profile) -->", result);
       if (result.status) {
         setAlbums(result.data.message || []);
       } else {
