@@ -58,8 +58,6 @@ export default class BandsService {
       const response = await axios.get(
         `${this.API_URL}/bands/${_id}/descriptionid`,
       );
-      console.log("A", response);
-      console.log("B", response.data.description);
 
       return response.data.description;
     } catch (error) {
