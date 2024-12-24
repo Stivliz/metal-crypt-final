@@ -7,15 +7,16 @@ import { CreateAlbum } from "./createAlbum";
 import SongsAlbum from "./songsAlbum";
 
 interface Album {
-  _id: string;
+  _id?: string; // Hacer opcional para nuevos álbumes
   name: string;
-  artist: string;
-  songs: { id: string; name: string }[];
-  image: string;
-  releaseType: string;
+  artist?: string;
+  songs?: { id?: string; name: string }[];
+  image?: string;
+  releaseType: "ALBUM" | "EP" | "SINGLE";
   genre?: string[];
   year?: string;
 }
+
 
 export function AlbumList() {
   const [albums, setAlbums] = useState<Album[]>([]);
@@ -27,23 +28,28 @@ export function AlbumList() {
   const $Album = new AlbumService();
 
   useEffect(() => {
-    async function fetchAlbums() {
-      try {
-        const result = await $Album.getAlbum();
-        console.log("result inside albumList(profile) -->", result);
-        if (result.status) {
-          setAlbums(result.data.message || []);
-        } else {
-          setError("Failed to fetch albums");
-        }
-      } catch (err) {
-        setError("An error occurred while fetching albums");
-      } finally {
-        setLoading(false);
-      }
-    }
     fetchAlbums();
   }, []);
+
+  const fetchAlbums = async () => {
+    setLoading(true);
+    try {
+      const result = await $Album.getAlbum();
+      if (result.status) {
+        setAlbums(result.data.message || []);
+      } else {
+        setError("Failed to fetch albums");
+      }
+    } catch (err) {
+      setError("An error occurred while fetching albums");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const addAlbum = (newAlbum: Album) => {
+    setAlbums((prevAlbums) => [...prevAlbums, newAlbum]);
+  };
 
   const toggleModal = {
     openModalForm: function () {
@@ -72,7 +78,6 @@ export function AlbumList() {
               key={album._id}
               className="max-w-max p-4 mb-2 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
             >
-              {/*  <p className="text-lg">Artist: {album.artist}</p>*/}
               {album.image && (
                 <button
                   className=""
@@ -88,13 +93,6 @@ export function AlbumList() {
                   />
                 </button>
               )}
-
-              {/* <p>
-                Genre:{" "}
-                {Array.isArray(album.genre)
-                  ? album.genre.join(", ")
-                  : "No genre listed"}
-              </p> */}
               <h3 className="text-lg font-bold mt-2 text-white">
                 {album.name}
               </h3>
@@ -108,7 +106,7 @@ export function AlbumList() {
             <p className="text-gray-500">No albums found.</p>
             <button
               className="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-400"
-              onClick={toggleModal.openModalForm} // Muestra el formulario al hacer clic
+              onClick={toggleModal.openModalForm}
             >
               Create Album
             </button>
@@ -119,7 +117,9 @@ export function AlbumList() {
             className="p-4 bg-gray-900 rounded-lg shadow-md flex justify-center items-center cursor-pointer "
             onClick={toggleModal.openModalForm}
           >
-            <span className=" flex justify-center items-center text-5xl text-gray-600 w-36 h-56">+</span>
+            <span className=" flex justify-center items-center text-5xl text-gray-600 w-36 h-56">
+              +
+            </span>
           </div>
         )}
         {isModalSongOpen && selectedAlbum && (
@@ -128,7 +128,12 @@ export function AlbumList() {
             closeModal={toggleModal.openModalSong}
           />
         )}
-        {isModalOpen && <CreateAlbum closeModal={toggleModal.openModalForm} />}
+        {isModalOpen && (
+          <CreateAlbum
+            closeModal={toggleModal.openModalForm}
+            onAlbumCreated={addAlbum}
+          />
+        )}
       </div>
     </div>
   );

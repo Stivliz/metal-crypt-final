@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, useEffect } from "react";
+import React, { useState, ChangeEvent } from "react";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import CardAlbumSong from "@/components/cardAlbumSong";
@@ -8,34 +8,40 @@ interface Song {
   name: string;
 }
 
-interface FormAlbum {
+interface Album {
+  _id?: string; // Hacer opcional para nuevos álbumes
   name: string;
   artist?: string;
-  songs?: Song[];
-  image?: string | undefined;
-  releaseType: "ALBUM" | "EP" | "SINGLE" | undefined; // Cambiado el tipo
+  songs?: { id?: string; name: string }[];
+  image?: string;
+  releaseType: "ALBUM" | "EP" | "SINGLE";
   genre?: string[];
   year?: string;
 }
 
-export const CreateAlbum = ({ closeModal }: any) => {
-  const [album, setAlbum] = useState<FormAlbum>({
+interface CreateAlbumProps {
+  closeModal: () => void;
+  onAlbumCreated: (newAlbum: Album) => void;
+}
+
+export const CreateAlbum = ({ closeModal, onAlbumCreated }: CreateAlbumProps) => {
+  const [album, setAlbum] = useState<Album>({
     name: "",
     artist: "",
     songs: [],
     image: undefined,
-    releaseType: undefined,
+    releaseType: "ALBUM", // Valor inicial
     genre: [],
     year: "",
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(true); // Estado para controlar los campos deshabilitados
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const $Album = new AlbumService();
 
-  const convertToBase64 = (file: File | null) => {
-    return new Promise<string | undefined>((resolve, reject) => {
+  const convertToBase64 = (file: File | null): Promise<string | undefined> => {
+    return new Promise((resolve, reject) => {
       if (!file) return resolve(undefined);
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -45,13 +51,13 @@ export const CreateAlbum = ({ closeModal }: any) => {
   };
 
   const handleInputChange = async (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
 
     if (name === "releaseType") {
       setAlbum({ ...album, releaseType: value as "ALBUM" | "EP" | "SINGLE" });
-      setIsDisabled(false); // Habilitar campos al seleccionar `releaseType`
+      setIsDisabled(false);
     } else if (name === "image" && "files" in e.target && e.target.files?.[0]) {
       const base64Image = await convertToBase64(e.target.files[0]);
       setAlbum({ ...album, image: base64Image });
@@ -60,8 +66,6 @@ export const CreateAlbum = ({ closeModal }: any) => {
         ...album,
         genre: value.split(",").map((item) => item.trim()),
       });
-    } else if (name === "year") {
-      setAlbum({ ...album, year: value });
     } else {
       setAlbum({ ...album, [name]: value });
     }
@@ -78,19 +82,20 @@ export const CreateAlbum = ({ closeModal }: any) => {
     try {
       const response = await $Album.PostAlbum(album);
 
-      if (response?.status === true) {
-        Swal.fire("Álbum creado exitosamente!");
+      if (response?.status) {
+        Swal.fire("Álbum creado exitosamente!", "", "success");
+
+        // Llama a la función pasada desde el componente padre
+        onAlbumCreated(album);
       } else {
-        throw new Error("Error al crear el álbum");
+        throw new Error(response?.data || "Error al crear el álbum");
       }
     } catch (error) {
-      console.log("Error en la creación del álbum:", error);
-      Swal.fire("Error al crear el álbum");
+      console.error("Error en la creación del álbum:", error);
+      Swal.fire("Error al crear el álbum", "", "error");
     }
     closeModal();
   };
-
-  const cookies = new Cookies();
 
   const getLabelAndPlaceholder = () => {
     switch (album.releaseType) {
@@ -106,8 +111,6 @@ export const CreateAlbum = ({ closeModal }: any) => {
   };
 
   const { label, placeholder } = getLabelAndPlaceholder();
-
-  console.log("Album FORM:", album);
 
   return (
     <form onSubmit={handleSubmit}>

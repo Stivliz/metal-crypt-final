@@ -42,7 +42,7 @@ const Profile = () => {
       <NavBar />
       <NavRoot />
       <div>
-        <div className="flex flex-col items-center h-[100vh]">
+        <div className="flex flex-col items-center">
           <div className="w-[80%] sm:w-[60%]">
             <div className="sm:flex">
               <div>

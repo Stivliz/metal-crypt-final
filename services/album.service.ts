@@ -28,7 +28,6 @@ export default class AlbumService {
       //backend-mc-2ul5.onrender.com/api/v1
       const cookies = new Cookies();
       const tokenCookies = cookies.get("token") || "";
-      console.log("* PostAlbum - token ---> ", tokenCookies);
       const { data } = await axios.post(`${this.API_URL}/album`, album, {
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +63,7 @@ export default class AlbumService {
           Authorization: `Bearer ${tokenCookies.toString()}`,
         },
       });
-      console.log("*** getAlbumDta", response.data)
+
       return { status: true, data: response.data };
     } catch (error: any) {
       console.error("Error fetching albums:", error);
