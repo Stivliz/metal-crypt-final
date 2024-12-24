@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, useEffect } from "react";
 import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import CardAlbumSong from "@/components/cardAlbumSong";
@@ -8,7 +8,7 @@ interface Song {
   name: string;
 }
 
-interface Album {
+interface FormAlbum {
   _id?: string; // Hacer opcional para nuevos álbumes
   name: string;
   artist?: string;
