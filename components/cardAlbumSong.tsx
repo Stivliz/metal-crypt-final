@@ -1,42 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 interface AlbumSongsModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: (songs: string[]) => void;
+  songs: { name: string }[]; // Recibimos las canciones del componente padre
 }
 
 const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
+  songs,
 }) => {
-  const [songs, setSongs] = useState<string[]>([""]);
+  const [currentSongs, setcurrentSongs] = useState<string[]>([""]);
+
+  useEffect(() => {
+    // Cuando se abre el modal, actualizamos las canciones con las del componente padre
+    setcurrentSongs(songs.map((song) => song.name));
+  }, [isOpen, songs]);
 
   const maxSongs = 20; // Máximo de canciones permitido
 
   const handleSongChange = (index: number, value: string) => {
-    const updatedSongs = [...songs];
+    const updatedSongs = [...currentSongs];
     updatedSongs[index] = value;
-    setSongs(updatedSongs);
+    setcurrentSongs(updatedSongs);
   };
 
   const addSong = () => {
     if (songs.length < maxSongs) {
-      setSongs([...songs, ""]);
+      setcurrentSongs([...currentSongs, ""]);
     }
   };
 
   const removeSong = (index: number) => {
-    const updatedSongs = songs.filter((_, i) => i !== index);
-    setSongs(updatedSongs);
+    const updatedSongs = currentSongs.filter((_, i) => i !== index);
+    setcurrentSongs(updatedSongs);
   };
 
   const handleConfirm = () => {
     // Filtrar canciones vacías antes de enviar
-    const validSongs = songs.filter((song) => song.trim() !== "");
+    const validSongs = currentSongs.filter((song) => song.trim() !== "");
     onConfirm(validSongs);
     onClose();
   };
@@ -62,7 +69,7 @@ const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
         {/* Content */}
         <div className="p-4 max-h-[60vh] overflow-y-auto">
           <div className="space-y-4">
-            {songs.map((song, index) => (
+            {currentSongs.map((song, index) => (
               <div key={index} className="flex gap-2">
                 <input
                   type="text"

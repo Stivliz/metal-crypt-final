@@ -78,7 +78,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
     numSongs: number,
   ): "ALBUM" | "EP" | "SINGLE" | undefined => {
     if (numSongs === 1) return "SINGLE";
-    if (numSongs >= 4 && numSongs <= 6) return "EP";
+    if (numSongs >= 2 && numSongs <= 6) return "EP";
     if (numSongs > 6) return "ALBUM";
     return undefined;
   };
@@ -200,6 +200,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
               isOpen={isModalOpen}
               onClose={() => setIsModalOpen(false)}
               onConfirm={handleSongsConfirm}
+              songs={album.songs || []}
             />
           )}
 
