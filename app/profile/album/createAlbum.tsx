@@ -12,11 +12,6 @@ interface Album {
   _id?: string; // Hacer opcional para nuevos álbumes
   name: string;
   artist?: string;
-<<<<<<< HEAD
-  songs?: { id?: string; name: string }[];
-  image?: string;
-  releaseType: "ALBUM" | "EP" | "SINGLE";
-=======
   songs?: Song[];
   image?: string | undefined;
   releaseType: "ALBUM" | "EP" | "SINGLE" | undefined;
