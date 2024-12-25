@@ -9,6 +9,7 @@ interface Song {
 }
 
 interface FormAlbum {
+  //interface FormAlbum
   _id?: string; // Hacer opcional para nuevos álbumes
   name: string;
   artist?: string;
@@ -19,7 +20,15 @@ interface FormAlbum {
   year?: string;
 }
 
-export const CreateAlbum = ({ closeModal }: any) => {
+interface CreateAlbumProps {
+  closeModal: () => void;
+  onAlbumCreated: (newAlbum: FormAlbum) => void;
+}
+
+export const CreateAlbum = ({
+  closeModal,
+  onAlbumCreated,
+}: CreateAlbumProps) => {
   const [album, setAlbum] = useState<FormAlbum>({
     name: "",
     artist: "",
@@ -91,6 +100,7 @@ export const CreateAlbum = ({ closeModal }: any) => {
 
       if (response?.status === true) {
         Swal.fire("Álbum creado exitosamente!");
+        onAlbumCreated(album);
       } else {
         throw new Error("Error al crear el álbum");
       }

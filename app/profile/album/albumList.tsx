@@ -6,17 +6,20 @@ import AlbumService from "@/services/album.service";
 import { CreateAlbum } from "./createAlbum";
 import SongsAlbum from "./songsAlbum";
 
+interface Song {
+  name: string;
+}
+
 interface Album {
   _id?: string; // Hacer opcional para nuevos álbumes
   name: string;
   artist?: string;
-  songs?: { id?: string; name: string }[];
-  image?: string;
-  releaseType: "ALBUM" | "EP" | "SINGLE";
+  songs?: Song[];
+  image?: string | undefined;
+  releaseType: "ALBUM" | "EP" | "SINGLE" | undefined;
   genre?: string[];
   year?: string;
 }
-
 
 export function AlbumList() {
   const [albums, setAlbums] = useState<Album[]>([]);
@@ -97,7 +100,7 @@ export function AlbumList() {
                 {album.name}
               </h3>
               <p className="text-sm text-zinc-400">
-                {album.year} • {album.releaseType.toUpperCase()}
+                {album.year} • {album.releaseType?.toUpperCase()}
               </p>
             </div>
           ))
