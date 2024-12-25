@@ -296,7 +296,7 @@ interface CreateAlbumProps {
   closeModal: () => void;
   onAlbumCreated: (newAlbum: Album) => void;
 }
-
+//hola mundo
 export const CreateAlbum = ({ closeModal, onAlbumCreated }: CreateAlbumProps) => {
   const [album, setAlbum] = useState<Album>({
     name: "",
