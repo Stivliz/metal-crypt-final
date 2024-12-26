@@ -19,10 +19,10 @@ const SongDataBand = ({ songs }: { songs: SongParams[] }) => {
       {songs.length > 0 && (
         <div className="flex items-center border-b border-gray-700 pb-3 mb-3">
           <div className="w-8 text-center">#</div>
-          <div className="flex-1 pl-3">Título</div>
-          <div className="w-48">Artista</div>
-          <div className="w-36">Género</div>
-          <div className="w-28 ">Discography</div>
+          <div className="flex-1 pl-3">Title</div>
+          <div className="hidden lg:block w-48">Artist</div>
+          <div className="flex items-end w-24 md:w-36">Genre</div>
+          <div className="hidden md:block w-28 ">Discography</div>
         </div>
       )}
       <div>
@@ -32,7 +32,7 @@ const SongDataBand = ({ songs }: { songs: SongParams[] }) => {
               key={song._id}
               className="flex items-center py-2 hover:bg-gray-800 rounded-md"
             >
-              <div className="w-8 text-center">{index + 1}</div>
+              <div className="w-8 text-center">{index + 1}.</div>
               <div className="flex items-center flex-1 pl-3">
                 <Image
                   src={song.image}
@@ -41,9 +41,9 @@ const SongDataBand = ({ songs }: { songs: SongParams[] }) => {
                 />
                 <span className="ml-3">{song.name}</span>
               </div>
-              <div className="w-48">{song.artist}</div>
-              <div className="w-36">{song.genre}</div>
-              <div className="flex w-28 items-center">
+              <div className="hidden lg:block  w-48">{song.artist}</div>
+              <div className="w-24 md:w-36">{song.genre}</div>
+              <div className="hidden md:block  w-28 ">
                 {song.releaseType.toUpperCase()}
               </div>
             </div>
