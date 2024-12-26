@@ -96,7 +96,7 @@ const BandPage = async ({ params }: { params: ParamsBand }) => {
     <div>
       <NavBar />
       <NavRoot />
-      <div className="flex flex-col items-center h-[100vh] bg-black">
+      <div className="flex flex-col items-center bg-black">
         <div className="w-[60%]">
           <div className="sm:flex">
             <div>
