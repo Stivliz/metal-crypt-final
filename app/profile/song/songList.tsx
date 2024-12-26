@@ -65,7 +65,7 @@ const SongList = () => {
           <div className="w-8 text-center">#</div>
           <div className="flex-1 pl-3">Title</div>
           <div className="hidden lg:block w-48">Artist</div>
-          <div className="flex items-end w-24 md:w-36">Genre</div>
+          <div className="flex items-end w-28 md:w-36">Genre</div>
           <div className="hidden md:block w-28 ">Discography</div>
         </div>
       ) : (
@@ -81,7 +81,7 @@ const SongList = () => {
                 key={song._id}
                 className="flex items-end py-2 hover:bg-gray-800 rounded-md"
               >
-                <div className="w-8 text-center">{index + 1}.</div>
+                <div className="w-8 text-center">{songs.length - index}.</div>
                 <div className="flex items-center flex-1 pl-3">
                   <Image
                     src={song.image}

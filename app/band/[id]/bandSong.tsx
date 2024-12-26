@@ -15,9 +15,9 @@ interface SongParams {
 
 const SongDataBand = ({ songs }: { songs: SongParams[] }) => {
   return (
-    <div className=" text-white py-5 rounded-lg shadow-md">
+    <div className="text-white py-5 rounded-lg shadow-md">
       {songs.length > 0 && (
-        <div className="flex items-center border-b border-gray-700 pb-3 mb-3">
+        <div className="w-full flex items-center border-b border-gray-700 pb-3 mb-3">
           <div className="w-8 text-center">#</div>
           <div className="flex-1 pl-3">Title</div>
           <div className="hidden lg:block w-48">Artist</div>
@@ -31,9 +31,9 @@ const SongDataBand = ({ songs }: { songs: SongParams[] }) => {
             .map((song: any, index: any) => (
               <div
                 key={song._id}
-                className="flex items-center py-2 hover:bg-gray-800 rounded-md"
+                className="flex  w-full items-center py-2 hover:bg-gray-800 rounded-md"
               >
-                <div className="w-8 text-center">{index + 1}.</div>
+                <div className="w-8 text-center">{songs.length - index}.</div>
                 <div className="flex items-center flex-1 pl-3">
                   <Image
                     src={song.image}
