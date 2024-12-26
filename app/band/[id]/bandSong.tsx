@@ -21,33 +21,35 @@ const SongDataBand = ({ songs }: { songs: SongParams[] }) => {
           <div className="w-8 text-center">#</div>
           <div className="flex-1 pl-3">Title</div>
           <div className="hidden lg:block w-48">Artist</div>
-          <div className="flex items-end w-24 md:w-36">Genre</div>
+          <div className="w-24 md:w-36">Genre</div>
           <div className="hidden md:block w-28 ">Discography</div>
         </div>
       )}
       <div>
         {songs.length > 0 ? (
-          songs.map((song: any, index: any) => (
-            <div
-              key={song._id}
-              className="flex items-center py-2 hover:bg-gray-800 rounded-md"
-            >
-              <div className="w-8 text-center">{index + 1}.</div>
-              <div className="flex items-center flex-1 pl-3">
-                <Image
-                  src={song.image}
-                  alt={song.name}
-                  className="w-10 h-10 object-cover rounded-md"
-                />
-                <span className="ml-3">{song.name}</span>
+          songs
+            .map((song: any, index: any) => (
+              <div
+                key={song._id}
+                className="flex items-center py-2 hover:bg-gray-800 rounded-md"
+              >
+                <div className="w-8 text-center">{index + 1}.</div>
+                <div className="flex items-center flex-1 pl-3">
+                  <Image
+                    src={song.image}
+                    alt={song.name}
+                    className="w-10 h-10 object-cover rounded-md"
+                  />
+                  <span className="ml-3">{song.name}</span>
+                </div>
+                <div className="hidden lg:block  w-48">{song.artist}</div>
+                <div className="w-24 md:w-36">{song.genre}</div>
+                <div className="hidden md:block  w-28 ">
+                  {song.releaseType.toUpperCase()}
+                </div>
               </div>
-              <div className="hidden lg:block  w-48">{song.artist}</div>
-              <div className="w-24 md:w-36">{song.genre}</div>
-              <div className="hidden md:block  w-28 ">
-                {song.releaseType.toUpperCase()}
-              </div>
-            </div>
-          ))
+            ))
+            .reverse()
         ) : (
           <p className="text-gray-500">No songs found.</p>
         )}
