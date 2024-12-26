@@ -52,46 +52,42 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
 
   return (
     <>
-      <div className="mt-8s">
-        <h2 className="text-xl text-white mb-4"></h2>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-4">
+      <div className="mt-8s overflow-x-auto">
+
+        <div className="flex items-center gap-2">
           {/* Verificación de que existan álbumes */}
-          {albums && albums.length > 0 ? (
-            albums.map((album: AlbumParams) => (
-              <div
-                key={album._id}
-                className="p-4 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
-              >
-                {album.image && (
-                  <button
-                    className=""
-                    onClick={() => toggleModal.openModalSong(album)}
-                  >
-                    <Image
-                      isZoomed
-                      src={album.image}
-                      alt={`${album.name} album cover`}
-                      width={150}
-                      height={150}
-                      className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
-                    />
-                  </button>
-                )}
-                <h3 className="text-lg font-bold mt-2 text-white">
-                  {album.name}
-                </h3>
-                {/*<p className="text-sm text-gray-300">Artist: {album.artist}</p>*/}
-                <p className="text-sm text-zinc-400">
-                  {album.year} • {album.releaseType.toUpperCase()}
-                </p>
-                {/* <p className="text-sm text-gray-300">
-                Genre: {album.genre?.join(", ") || "Genre not available"}
-                </p> */}
-              </div>
-            ))
-          ) : (
-            <p className="text-gray-500">No albums found for this band.</p>
+    {albums.length > 0 ? (
+      albums.map((album: AlbumParams) => (
+        <div
+          key={album._id}
+          className="min-w-[200px] p-4 mb-2 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
+        >
+          {album.image && (
+            <button onClick={() => toggleModal.openModalSong(album)}>
+              <Image
+                isZoomed
+                src={album.image}
+                alt={album.name}
+                width={150}
+                height={150}
+                className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
+              />
+            </button>
           )}
+          <h3 className="text-lg font-bold mt-2 text-white">
+            {album.name}
+          </h3>
+          <p className="text-sm text-zinc-400">
+            {album.year} • {album.releaseType?.toUpperCase()}
+          </p>
+        </div>
+      )).reverse()
+    ) : (
+      <div className="col-span-4 p-4 bg-gray-900 rounded-lg shadow-md min-h-[200px] flex flex-col items-center justify-center">
+        <p className="text-gray-500">No albums found.</p>
+
+      </div>
+    )}
         </div>
       </div>
       {/* Modal para mostrar las canciones del álbum */}
