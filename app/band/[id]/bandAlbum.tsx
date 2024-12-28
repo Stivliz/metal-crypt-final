@@ -49,45 +49,46 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
       return setIsModalSongOpen(!isModalSongOpen);
     },
   };
+  const prueba = albums.map((m: any) => console.log("pruebas in album:", m));
 
   return (
     <>
       <div className="mt-8s overflow-x-auto">
-
         <div className="flex items-center gap-2">
           {/* Verificación de que existan álbumes */}
-    {albums.length > 0 ? (
-      albums.map((album: AlbumParams) => (
-        <div
-          key={album._id}
-          className="min-w-[200px] p-4 mb-2 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
-        >
-          {album.image && (
-            <button onClick={() => toggleModal.openModalSong(album)}>
-              <Image
-                isZoomed
-                src={album.image}
-                alt={album.name}
-                width={150}
-                height={150}
-                className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
-              />
-            </button>
+          {albums.length > 0 ? (
+            albums
+              .map((album: AlbumParams) => (
+                <div
+                  key={album._id}
+                  className="min-w-[200px] p-4 mb-2 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
+                >
+                  {album.image && (
+                    <button onClick={() => toggleModal.openModalSong(album)}>
+                      <Image
+                        isZoomed
+                        src={album.image}
+                        alt={album.name}
+                        width={150}
+                        height={150}
+                        className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
+                      />
+                    </button>
+                  )}
+                  <h3 className="text-lg font-bold mt-2 text-white">
+                    {album.name}
+                  </h3>
+                  <p className="text-sm text-zinc-400">
+                    {album.year} • {album.releaseType?.toUpperCase()}
+                  </p>
+                </div>
+              ))
+              .reverse()
+          ) : (
+            <div className="col-span-4 p-4 bg-gray-900 rounded-lg shadow-md min-h-[200px] flex flex-col items-center justify-center">
+              <p className="text-gray-500">No albums found.</p>
+            </div>
           )}
-          <h3 className="text-lg font-bold mt-2 text-white">
-            {album.name}
-          </h3>
-          <p className="text-sm text-zinc-400">
-            {album.year} • {album.releaseType?.toUpperCase()}
-          </p>
-        </div>
-      )).reverse()
-    ) : (
-      <div className="col-span-4 p-4 bg-gray-900 rounded-lg shadow-md min-h-[200px] flex flex-col items-center justify-center">
-        <p className="text-gray-500">No albums found.</p>
-
-      </div>
-    )}
         </div>
       </div>
       {/* Modal para mostrar las canciones del álbum */}
@@ -97,7 +98,7 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
           closeModal={toggleModal.openModalSong}
         />
       )}
-      <SongModal isOpen={isOpen} onClose={closeModal} songs={selectedSongs} />
+      {/*<SongModal isOpen={isOpen} onClose={closeModal} songs={selectedSongs} />*/}
     </>
   );
 };

@@ -1,3 +1,5 @@
+import { Image } from "@nextui-org/react";
+
 const SongsAlbum = ({ album, closeModal }: any) => {
   if (!album || !album.songs) return null;
 
@@ -10,11 +12,17 @@ const SongsAlbum = ({ album, closeModal }: any) => {
         >
           &#x2715;
         </button>
-        <h2 className="text-xl font-semibold mb-4">Songs in {album.name}</h2>
+        <h2 className="text-xl font-semibold mb-4">{album.name} </h2>
         <div className="space-y-2">
           {album.songs.map((song: any, index: any) => (
-            <p key={index} className="text-gray-300">
-              {index + 1}. {song.name}
+            <p key={index} className="flex items-center gap-2 text-gray-300">
+              {index + 1}.
+              <Image
+                src={album.image}
+                alt={song.name}
+                className="w-6 h-6 rounded-md"
+              />
+              {song.name}
             </p>
           ))}
         </div>
