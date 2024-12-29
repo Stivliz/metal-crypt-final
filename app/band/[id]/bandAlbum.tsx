@@ -71,7 +71,7 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
                         alt={album.name}
                         width={150}
                         height={150}
-                        className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
+                        className="rounded-lg w-[100] h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
                       />
                     </button>
                   )}
