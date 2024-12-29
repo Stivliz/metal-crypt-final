@@ -5,7 +5,7 @@ const SongsAlbum = ({ album, closeModal }: any) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-gray-800 text-white rounded-lg shadow-lg p-6 w-65 md:w-96 md:relative">
+      <div className="bg-gray-800 text-white rounded-lg  p-6 w-[336px] md:w-96 relative">
         <button
           className="absolute top-2 right-2 text-gray-400 hover:text-gray-100"
           onClick={closeModal}
