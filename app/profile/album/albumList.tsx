@@ -77,7 +77,7 @@ export function AlbumList() {
       <div className="flex items-center gap-2">
         {albums.length > 0 && (
           <div
-            className="min-w-[150px] p-4 bg-gray-900 rounded-lg shadow-md flex justify-center items-center cursor-pointer mb-2"
+            className="min-w-[150px] p-4 bg-gray-800 rounded-lg shadow-md flex justify-center items-center cursor-pointer mb-2"
             onClick={toggleModal.openModalForm}
           >
             <span className="flex justify-center items-center text-5xl text-gray-600 w-36 h-56">

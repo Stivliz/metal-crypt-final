@@ -61,7 +61,7 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
               .map((album: AlbumParams) => (
                 <div
                   key={album._id}
-                  className="min-w-[200px] p-4 mb-2 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
+                  className="min-w-[200px] p-4 mb-2 bg-gray-800 rounded-lg shadow-md md:py-6 md:px-5"
                 >
                   {album.image && (
                     <button onClick={() => toggleModal.openModalSong(album)}>

@@ -13,7 +13,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
   return (
     <div className="md:w-4/5 mx-auto">
-      <div className="w-3/5 h-px bg-white mt-2 mx-auto md:mt-10 md:mb-5"> </div>
+      <div className="w-3/5 h-px bg-white mt-2 my-4 mx-auto md:mt-10 md:mb-5"></div>
       <div className="flex flex-col md:grid md:grid-cols-4 md:mt-3 md:gap-4">
         <div>
           <div className="flex flex-col items-center">
