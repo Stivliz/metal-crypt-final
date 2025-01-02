@@ -15,7 +15,10 @@ const SongsAlbum = ({ album, closeModal }: any) => {
         <h2 className="text-xl font-semibold mb-4">{album.name} </h2>
         <div className="space-y-2 ">
           {album.songs.map((song: any, index: any) => (
-            <p key={index} className="flex items-center gap-3 text-gray-300">
+            <p
+              key={index}
+              className="flex items-center gap-3 hover:bg-gray-900 text-gray-300"
+            >
               {index + 1}.
               <Image
                 src={album.image}

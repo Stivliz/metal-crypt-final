@@ -70,7 +70,7 @@ const CardAlbumSong: React.FC<AlbumSongsModalProps> = ({
         <div className="p-4 max-h-[60vh] overflow-y-auto">
           <div className="space-y-4">
             {currentSongs.map((song, index) => (
-              <div key={index} className="flex gap-2">
+              <div key={index} className="flex gap-2 ">
                 <input
                   type="text"
                   placeholder={`Canción ${index + 1}`}
