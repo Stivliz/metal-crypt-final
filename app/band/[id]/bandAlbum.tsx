@@ -1,7 +1,6 @@
 //import Image from "next/image";
 "use client";
 import { Image } from "@nextui-org/react";
-import Link from "next/link";
 import SongModal from "./songModal";
 import { useState } from "react";
 
@@ -14,33 +13,11 @@ interface AlbumParams {
   year: number;
   genre: string[];
 }
-interface BandParams {
-  _id: string;
-  bandname: string;
-  genre: string[]; // Puede ser undefined o vacío, entonces usamos el encadenamiento opcional
-  logoBand: string;
-  formedDate: string;
-  albums: AlbumParams[];
-}
 
 const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedSongs, setSelectedSongs] = useState<string[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalSongOpen, setIsModalSongOpen] = useState(false);
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumParams | null>(null);
-
-  console.log(albums);
-  
-  const openModal = (songs: string[]) => {
-    setSelectedSongs(songs);
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-    setSelectedSongs([]);
-  };
 
   const toggleModal = {
     openModalForm: function () {
@@ -51,7 +28,6 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
       return setIsModalSongOpen(!isModalSongOpen);
     },
   };
-  const prueba = albums.map((m: any) => console.log("pruebas in album:", m));
 
   return (
     <>
@@ -100,7 +76,6 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
           closeModal={toggleModal.openModalSong}
         />
       )}
-      {/*<SongModal isOpen={isOpen} onClose={closeModal} songs={selectedSongs} />*/}
     </>
   );
 };
