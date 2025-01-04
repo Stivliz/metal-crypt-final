@@ -3,8 +3,6 @@ import { Image } from "@nextui-org/react";
 const SongModal = ({ album, closeModal }: any) => {
   if (!album || !album.songs) return null;
 
-  //const prueba = album.songs.map((m: any) => console.log("pruebas:", m));
-
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-gray-800 text-white rounded-lg  p-6 w-[336px] md:w-96 relative">

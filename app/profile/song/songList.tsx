@@ -28,7 +28,6 @@ const SongList = () => {
     async function fetchAlbums() {
       try {
         const result = await $Song.getSong();
-        console.log("result inside songList(profile) -->", result);
         if (result.status) {
           setSongs(result.data.message || []);
         } else {
@@ -55,8 +54,6 @@ const SongList = () => {
   if (error) {
     return <p>{error}</p>;
   }
-
-  console.log("songs desde SONGLIST(profile/song)", songs);
 
   return (
     <div className=" rounded-lg shadow-md">
