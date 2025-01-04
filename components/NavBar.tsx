@@ -24,10 +24,11 @@ const NavBar = () => {
     cookies.remove("genre");
     cookies.remove("logoBand");
     cookies.remove("token");
+    cookies.remove("description")
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 800);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 800);
 
     setIsLoggedIn(false);
     router.push("/");

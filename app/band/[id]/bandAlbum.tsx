@@ -30,6 +30,8 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
   const [isModalSongOpen, setIsModalSongOpen] = useState(false);
   const [selectedAlbum, setSelectedAlbum] = useState<AlbumParams | null>(null);
 
+  console.log(albums);
+  
   const openModal = (songs: string[]) => {
     setSelectedSongs(songs);
     setIsOpen(true);
