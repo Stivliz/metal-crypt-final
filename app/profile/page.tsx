@@ -43,7 +43,7 @@ const Profile = () => {
       <NavRoot />
       <div>
         <div className="flex flex-col items-center">
-          <div className="w-[80%] sm:w-[60%]">
+          <div className="w-[85%] md:w-[65%]">
             <div className="sm:flex">
               <div>
                 <h2 className="text-3xl">{cookie.bandname}</h2>

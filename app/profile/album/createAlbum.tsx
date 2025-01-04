@@ -146,7 +146,7 @@ export const CreateAlbum = ({
   return (
     <form onSubmit={handleSubmit}>
       <div className="fixed inset-0 flex justify-center items-center z-50">
-        <div className="bg-zinc-800 p-4 rounded-xl max-w-md mx-auto">
+        <div className="bg-zinc-800 p-4 rounded-xl w-[80] md:max-w-md md:mx-auto">
           <div className="flex justify-end mx-auto">
             <button
               className="bg-gray-800 text-white py-1 px-3 font-semibold rounded-full shadow"

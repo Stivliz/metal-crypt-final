@@ -7,7 +7,6 @@ import BandsService from "@/services/bands.service";
 import SongDataBand from "./bandSong";
 
 const TabsBand = ({ albums, bandId }: { albums: any; bandId: string }) => {
-
   const [bandDescription, setBandDescription] = useState<string | null>(null);
 
   useEffect(() => {
@@ -37,14 +36,17 @@ const TabsBand = ({ albums, bandId }: { albums: any; bandId: string }) => {
     })),
   );
 
-
   return (
     <div className="flex w-full flex-col ">
-      <Tabs aria-label="Dynamic tabs" >
+      <Tabs aria-label="Dynamic tabs">
         <Tab key="description" title="Description">
           <Card>
             <CardBody>
-              {bandDescription==null ? (<p>No info</p>) : (<p>{bandDescription}</p>)}
+              {bandDescription == null ? (
+                <p>No info</p>
+              ) : (
+                <p>{bandDescription}</p>
+              )}
             </CardBody>
           </Card>
         </Tab>
@@ -57,7 +59,7 @@ const TabsBand = ({ albums, bandId }: { albums: any; bandId: string }) => {
         </Tab>
         <Tab key="songs" title="Songs">
           <Card>
-            <CardBody className="text-gray-500">
+            <CardBody className="w-full text-gray-500">
               <SongDataBand songs={songs} />
             </CardBody>
           </Card>
