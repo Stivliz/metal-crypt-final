@@ -73,49 +73,54 @@ export function AlbumList() {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <div className="flex items-center gap-2">
-        {albums.length > 0 && (
-          <div
-            className="min-w-[150px] p-4 bg-gray-800 rounded-lg shadow-md flex justify-center items-center cursor-pointer mb-2"
-            onClick={toggleModal.openModalForm}
-          >
-            <span className="flex justify-center items-center text-5xl text-gray-600 w-36 h-56">
-              +
-            </span>
-          </div>
-        )}
+    <div className="overflow-x-auto pb-4">
+      <div className="flex items-center gap-4">
+        {/* ADD ALBUM BUTTON ALWAYS VISIBLE */}
+        <div
+          className="min-w-[220px] w-[220px] aspect-square p-6 bg-black/60 backdrop-blur-xl border border-white/10 hover:border-white/50 transition-all rounded-2xl shadow-lg flex flex-col justify-center items-center cursor-pointer group"
+          onClick={toggleModal.openModalForm}
+        >
+          <span className="text-6xl text-gray-400 group-hover:text-white transition-colors drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]">
+            +
+          </span>
+          <p className="mt-6 text-sm font-bold text-gray-400 group-hover:text-gray-200 tracking-widest uppercase text-center">Forjar Álbum</p>
+        </div>
+
         {albums.length > 0 ? (
           albums
             .map((album: Album) => (
               <div
                 key={album._id}
-                className="min-w-[200px] p-4 mb-2 bg-gray-900 rounded-lg shadow-md md:py-6 md:px-5"
+                className="min-w-[220px] w-[220px] flex flex-col p-4 bg-black/60 backdrop-blur-xl border border-white/10 hover:border-white/30 transition-all rounded-xl shadow-lg gap-3"
               >
-                {album.image && (
-                  <button onClick={() => toggleModal.openModalSong(album)}>
-                    <Image
-                      isZoomed
+                {album.image ? (
+                  <button onClick={() => toggleModal.openModalSong(album)} className="w-full aspect-square rounded-xl overflow-hidden flex-shrink-0 bg-black relative group">
+                    <img
                       src={album.image}
                       alt={album.name}
-                      width={150}
-                      height={150}
-                      className="rounded-lg w-full h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                     />
                   </button>
+                ) : (
+                  <button onClick={() => toggleModal.openModalSong(album)} className="w-full aspect-square flex-shrink-0 flex items-center justify-center bg-gray-900 rounded-xl relative group overflow-hidden">
+                    <span className="text-gray-500 text-xs uppercase tracking-widest absolute z-10">Sin Portada</span>
+                    <div className="absolute inset-0 bg-gray-800 opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                  </button>
                 )}
-                <h3 className="text-lg font-bold mt-2 text-white">
-                  {album.name}
-                </h3>
-                <p className="text-sm text-zinc-400">
-                  {album.year} • {album.releaseType?.toUpperCase()}
-                </p>
+                <div className="text-center w-full px-1">
+                  <h3 className="text-base font-black text-white tracking-widest uppercase truncate w-full drop-shadow-md" title={album.name}>
+                    {album.name}
+                  </h3>
+                  <p className="text-xs text-gray-400 tracking-wider font-semibold mt-1">
+                    {album.year} • {album.releaseType?.toUpperCase() || "ALBUM"}
+                  </p>
+                </div>
               </div>
             ))
             .reverse()
         ) : (
-          <div className="col-span-4 p-4 bg-gray-900 rounded-lg shadow-md min-h-[200px] flex flex-col items-center justify-center">
-            <p className="text-gray-500">No albums found.</p>
+          <div className="p-4 flex items-center justify-center h-[200px]">
+            <p className="text-gray-500 italic tracking-wider text-sm">Tu discografía está vacía. Es hora de crear tu legado.</p>
           </div>
         )}
 

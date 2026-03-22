@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import Cookies from "universal-cookie";
 import CardAlbumSong from "@/components/cardAlbumSong";
 import AlbumService from "@/services/album.service";
+import { motion } from "framer-motion";
 
 interface Song {
   name: string;
@@ -142,11 +143,20 @@ export const CreateAlbum = ({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="fixed inset-0 flex justify-center items-center z-50">
-        <div className="bg-zinc-800 p-4 rounded-xl w-[80] md:max-w-md md:mx-auto">
-          <div className="flex justify-end mx-auto">
+      <div className="fixed inset-0 flex justify-center items-center z-[100] bg-black/60 backdrop-blur-sm p-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 30, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="bg-black/80 backdrop-blur-xl border border-white/10 p-8 rounded-2xl shadow-[0_0_40px_rgba(0,0,0,0.8)] w-full md:max-w-md mx-auto relative overflow-y-auto max-h-[90vh]"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl pointer-events-none"></div>
+          
+          <div className="flex justify-between items-center mb-6 relative z-10">
+            <h2 className="text-xl font-bold text-white tracking-widest uppercase">Forjar Álbum</h2>
             <button
-              className="bg-gray-800 text-white py-1 px-3 font-semibold rounded-full shadow"
+              type="button"
+              className="text-gray-400 hover:text-white transition-colors"
               onClick={() => closeModal()}
               aria-label="Close modal"
             >
@@ -154,125 +164,101 @@ export const CreateAlbum = ({
             </button>
           </div>
 
-          {/* Name */}
-          <div className="mb-3">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-200 mb-2"
-            >
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md text-white"
-              placeholder="Enter name"
-              required
-            />
-          </div>
-
-          {/* Artist */}
-          <div className="mb-3">
-            <label
-              htmlFor="artist"
-              className="block text-sm font-medium text-gray-200 mb-2"
-            >
-              Artist
-            </label>
-            <input
-              type="text"
-              id="artist"
-              name="artist"
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md text-white"
-              placeholder="Enter artist name"
-            />
-          </div>
-
-          {/* Botón para crear lista de canciones */}
-          <div className="mb-3">
-            <button
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              className="w-full px-4 py-2 bg-black text-white font-medium rounded-md"
-            >
-              Create list songs
-            </button>
-          </div>
-
-          {isModalOpen && (
-            <CardAlbumSong
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              onConfirm={handleSongsConfirm}
-              songs={album.songs || []}
-            />
-          )}
-
-          {/*Image Upload*/}
-          <div className="mb-3">
-            <label
-              htmlFor="picture"
-              className="block text-sm font-medium text-gray-200 mb-2"
-            >
-              Image
-            </label>
-            <div className="relative">
+          <div className="space-y-6 relative z-10">
+            {/* Name */}
+            <div>
+              <label htmlFor="name" className="block text-xs font-semibold text-gray-400 mb-1 tracking-wider uppercase">Name</label>
               <input
-                type="file"
-                id="picture"
-                name="image"
-                accept="image/*"
+                type="text" id="name" name="name"
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-black file:text-white hover:file:bg-zinc-900"
+                className="w-full px-2 py-2 bg-transparent border-b border-gray-600 text-white focus:border-white focus:outline-none transition-colors placeholder-gray-700"
+                placeholder="Album Title" required
               />
             </div>
-          </div>
 
-          {/* Otros campos */}
-          <div className="mb-3">
-            <label
-              htmlFor="genre"
-              className="block text-sm font-medium text-gray-200 mb-2"
-            >
-              Genre
-            </label>
-            <input
-              type="text"
-              id="genre"
-              name="genre"
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md text-white"
-              placeholder="Enter genre"
-            />
-          </div>
+            {/* Artist */}
+            <div>
+              <label htmlFor="artist" className="block text-xs font-semibold text-gray-400 mb-1 tracking-wider uppercase">Artist</label>
+              <input
+                type="text" id="artist" name="artist"
+                onChange={handleInputChange}
+                className="w-full px-2 py-2 bg-transparent border-b border-gray-600 text-white focus:border-white focus:outline-none transition-colors placeholder-gray-700"
+                placeholder="Band Name"
+              />
+            </div>
 
-          <div className="mb-3">
-            <label
-              htmlFor="year"
-              className="block text-sm font-medium text-gray-200 mb-2"
-            >
-              Year
-            </label>
-            <input
-              type="date"
-              id="year"
-              name="year"
-              onChange={handleInputChange}
-              className="w-full px-3 py-2 bg-zinc-700 border border-zinc-600 rounded-md text-white"
-            />
-          </div>
+            {/* Button for song list */}
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="w-full uppercase tracking-widest text-xs py-3 bg-gray-900 hover:bg-gray-800 border border-gray-700 text-white font-medium rounded-md transition-colors"
+              >
+                + Añadir Canciones ({album.songs?.length || 0})
+              </button>
+            </div>
 
-          <button
-            type="submit"
-            className="w-full px-4 py-2 bg-blue-950 text-white font-medium rounded-md"
-            disabled={isDisabled}
-          >
-            Crear álbum
-          </button>
-        </div>
+            {isModalOpen && (
+              <CardAlbumSong
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={handleSongsConfirm}
+                songs={album.songs || []}
+              />
+            )}
+
+            {/* Image */}
+            <div>
+              <label htmlFor="picture" className="block text-xs font-semibold text-gray-400 mb-2 tracking-wider uppercase">Cover Image</label>
+              
+              {album.image && (
+                <div className="mb-4 flex justify-center">
+                  <div className="w-32 h-32 aspect-square rounded-xl overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.8)] border border-white/10 bg-black relative">
+                    <img src={album.image} alt="Cover Preview" className="absolute inset-0 w-full h-full object-cover" />
+                  </div>
+                </div>
+              )}
+
+              <input
+                type="file" id="picture" name="image" accept="image/*"
+                onChange={handleInputChange}
+                className="w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-gray-800 file:text-white hover:file:bg-gray-700 cursor-pointer transition-colors"
+              />
+            </div>
+
+            {/* Genre */}
+            <div>
+              <label htmlFor="genre" className="block text-xs font-semibold text-gray-400 mb-1 tracking-wider uppercase">Genre (comma separated)</label>
+              <input
+                type="text" id="genre" name="genre"
+                onChange={handleInputChange}
+                className="w-full px-2 py-2 bg-transparent border-b border-gray-600 text-white focus:border-white focus:outline-none transition-colors placeholder-gray-700"
+                placeholder="Death Metal, Doom Metal..."
+              />
+            </div>
+
+            {/* Year */}
+            <div>
+              <label htmlFor="year" className="block text-xs font-semibold text-gray-400 mb-1 tracking-wider uppercase">Release Year</label>
+              <input
+                type="date" id="year" name="year"
+                onChange={handleInputChange}
+                className="w-full px-2 py-2 bg-transparent border-b border-gray-600 text-gray-300 focus:border-white focus:outline-none transition-colors"
+              />
+            </div>
+
+            {/* Submit */}
+            <div className="pt-4">
+              <button
+                type="submit"
+                className="w-full uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed bg-gradient-to-r from-gray-800 to-black hover:from-gray-700 hover:to-gray-900 border border-gray-600 hover:border-white text-white font-bold py-3 rounded transition-all hover:shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                disabled={isDisabled}
+              >
+                Registrar Álbum
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </form>
   );
