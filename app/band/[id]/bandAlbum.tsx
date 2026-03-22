@@ -31,40 +31,44 @@ const AlbumDataBand = ({ albums }: { albums: AlbumParams[] }) => {
 
   return (
     <>
-      <div className="mt-8s overflow-x-auto">
-        <div className="flex items-center gap-2">
+      <div className="overflow-x-auto pb-4">
+        <div className="flex items-center gap-4">
           {/* Verificación de que existan álbumes */}
           {albums.length > 0 ? (
             albums
               .map((album: AlbumParams) => (
                 <div
                   key={album._id}
-                  className="min-w-[200px] p-4 mb-2 bg-gray-800 rounded-lg shadow-md md:py-6 md:px-5"
+                  className="min-w-[220px] w-[220px] flex flex-col p-4 bg-black/60 backdrop-blur-xl border border-white/10 hover:border-white/30 transition-all rounded-2xl shadow-lg gap-3"
                 >
-                  {album.image && (
-                    <button onClick={() => toggleModal.openModalSong(album)}>
-                      <Image
-                        isZoomed
+                  {album.image ? (
+                    <button onClick={() => toggleModal.openModalSong(album)} className="w-full aspect-square rounded-xl overflow-hidden flex-shrink-0 bg-black relative group">
+                      <img
                         src={album.image}
                         alt={album.name}
-                        width={150}
-                        height={150}
-                        className="rounded-lg w-[100] h-auto object-cover transition-transform duration-200 ease-in-out hover:scale-110"
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                       />
                     </button>
+                  ) : (
+                    <button onClick={() => toggleModal.openModalSong(album)} className="w-full aspect-square flex-shrink-0 flex items-center justify-center bg-gray-900 rounded-xl relative group overflow-hidden">
+                      <span className="text-gray-500 text-xs uppercase tracking-widest absolute z-10">Sin Portada</span>
+                      <div className="absolute inset-0 bg-gray-800 opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                    </button>
                   )}
-                  <h3 className="text-lg font-bold mt-2 text-white">
-                    {album.name}
-                  </h3>
-                  <p className="text-sm text-zinc-400">
-                    {album.year} • {album.releaseType?.toUpperCase()}
-                  </p>
+                  <div className="text-center w-full px-1">
+                    <h3 className="text-base font-black text-white tracking-widest uppercase truncate w-full drop-shadow-md" title={album.name}>
+                      {album.name}
+                    </h3>
+                    <p className="text-xs text-gray-400 tracking-wider font-semibold mt-1">
+                      {album.year} • {album.releaseType?.toUpperCase() || "ALBUM"}
+                    </p>
+                  </div>
                 </div>
               ))
               .reverse()
           ) : (
-            <div className="col-span-4 p-4 bg-gray-900 rounded-lg shadow-md min-h-[200px] flex flex-col items-center justify-center">
-              <p className="text-gray-500">No albums found.</p>
+            <div className="p-4 flex items-center justify-center h-[200px] w-full">
+              <p className="text-gray-500 italic tracking-wider text-sm">Esta banda no ha subido discografía aún.</p>
             </div>
           )}
         </div>
