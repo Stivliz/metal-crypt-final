@@ -4,6 +4,7 @@ import BandsService from "@/services/bands.service";
 import PaginationComponent from "@/components/PaginationComponent";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface IntBands {
   _id: string;
@@ -52,26 +53,31 @@ const BandsHome = () => {
           { !currentBands.length ? (<div className="text-white flex justify-center items-center w-[100%]">LOADING DATA...</div>):
           
           (currentBands
-            ?.map((e) => (
-              <div
+            ?.map((e, index) => (
+              <motion.div
                 key={e._id}
-                className="flex flex-col items-center border border-white min-w-min mx-16"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                whileHover={{ scale: 1.05 }}
+                className="flex flex-col items-center border border-white/10 bg-white/5 backdrop-blur-sm rounded-xl overflow-hidden hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] transition-all duration-300 min-w-min mx-4 mb-8"
               >
-                <Link href={`/band/${e._id}`}>
+                <Link href={`/band/${e._id}`} className="flex flex-col items-center block w-full h-full p-4 group">
                   <Image
                     width={250}
                     height={250}
                     src={e.logoBand}
-                    alt="photo"
+                    alt={e.bandname}
+                    className="rounded-lg mb-2 object-cover shadow-lg"
                   />
-                  <h2 className="text-center">{e.bandname}</h2>
-                  <p className="text-center break-words">
+                  <h2 className="text-center font-bold text-xl mt-3 tracking-wide text-white group-hover:text-gray-200 transition-colors uppercase">{e.bandname}</h2>
+                  <p className="text-center break-words text-gray-400 mt-1 text-sm">
                     {
                       `${e.genre.length > 1 ? 'Genres' : 'Genre'} - ${e.genre}`
                     }
-                </p>
+                  </p>
                 </Link>
-              </div>
+              </motion.div>
             ))
             .reverse())}
 

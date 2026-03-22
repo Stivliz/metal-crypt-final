@@ -6,12 +6,12 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
-    <body className="bg-black h-[100%] flex flex-col justify-center w-auto">
+    <main className="bg-black min-h-screen flex flex-col justify-center w-full">
       <NavBar />
       <NavRoot />
       <BandsHome />
       <Footer />
-    </body>
+    </main>
   );
 }
 

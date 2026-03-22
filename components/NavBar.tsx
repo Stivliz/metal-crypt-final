@@ -35,7 +35,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="flex flex-col justify-center items-center w-full bg-black">
+    <nav className="flex flex-col justify-center items-center w-full sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-white/10 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.5)]">
       <section>
         <Logo />
       </section>
